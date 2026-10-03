@@ -221,6 +221,14 @@ html[lang="hi"] h1{font-size:clamp(2.3rem,5vw,3.9rem)}
 .get p{color:var(--mute);font-size:18px;margin:0 0 26px;max-width:30em}
 .qr-big{justify-self:center;background:#fff;border-radius:22px;padding:14px;line-height:0;color:#0A0913;font-size:13px}
 @media(max-width:760px){.get{grid-template-columns:1fr;padding:30px 22px}.qr-big{justify-self:start}}
+/* Folded summary for people who skim to the bottom; closed so it doesn't repeat the page. */
+.glance{border:1px solid var(--line);border-radius:22px;background:var(--raised);padding:0 22px;margin-bottom:40px}
+.glance summary{padding:20px 0;font:600 20px var(--f-display)}
+.glance[open]{padding-bottom:8px}
+.gl-row{display:grid;grid-template-columns:12em 1fr;gap:2px 16px;padding:12px 0;border-top:1px solid var(--line)}
+.gl-row b{font-weight:600}
+.gl-row span{color:var(--mute)}
+@media(max-width:600px){.gl-row{grid-template-columns:1fr}}
 .faq{max-width:780px;margin-top:64px}
 .faq h3{font:600 22px var(--f-display);margin:0 0 6px}
 details{border-bottom:1px solid var(--line);padding:16px 0}
@@ -420,6 +428,10 @@ footer a{color:var(--mute)}
 
   <section id="get">
     <div class="wrap">
+      <details class="glance">
+        <summary data-i18n="gl.title">All features at a glance</summary>
+        <div id="glance"></div>
+      </details>
       <div class="get">
         <div>
           <h2 data-i18n="get.title">Get Swipe View</h2>
@@ -493,7 +505,7 @@ en: {
   "pv.eyebrow":"Privacy","pv.title":"Your phone. Your data.",
   "pv1":"No account, no sign-up","pv2":"Your videos never leave your phone","pv3":"Contact search is optional and stays on your phone",
   "pv4":"The internet is only used for link titles and thumbnails, and you can turn that off","pv.link":"Read the privacy policy",
-  "get.title":"Get Swipe View","get.body":"Point your phone camera at the code, or tap the button on your Android phone.",
+  "gl.title":"All features at a glance","get.title":"Get Swipe View","get.body":"Point your phone camera at the code, or tap the button on your Android phone.",
   "faq.title":"Questions",
   "q1":"Is Swipe View free?","a1":"Yes. It's free to download from Google Play.",
   "q2":"Does it need the internet?","a2":"No. Your videos, contacts, apps, sums and alarms all work offline. Web searches open in your browser or the app you pick.",
@@ -546,7 +558,7 @@ hi: {
   "pv.eyebrow":"प्राइवेसी","pv.title":"आपका फ़ोन, आपका डेटा।",
   "pv1":"न अकाउंट, न साइन-अप","pv2":"आपके वीडियो फ़ोन से बाहर नहीं जाते","pv3":"कॉन्टैक्ट सर्च ऑप्शनल है और फ़ोन में ही रहता है",
   "pv4":"इंटरनेट सिर्फ़ लिंक के टाइटल और थंबनेल के लिए लगता है, और उसे बंद कर सकते हो","pv.link":"प्राइवेसी पॉलिसी पढ़ें",
-  "get.title":"Swipe View डाउनलोड करो","get.body":"फ़ोन का कैमरा इस कोड पर रखो, या Android फ़ोन पर बटन टैप करो।",
+  "gl.title":"सारे फ़ीचर्स एक नज़र में","get.title":"Swipe View डाउनलोड करो","get.body":"फ़ोन का कैमरा इस कोड पर रखो, या Android फ़ोन पर बटन टैप करो।",
   "faq.title":"सवाल-जवाब",
   "q1":"क्या Swipe View फ़्री है?","a1":"हाँ। Google Play से फ़्री में डाउनलोड कर सकते हो।",
   "q2":"क्या इंटरनेट चाहिए?","a2":"नहीं। वीडियो, कॉन्टैक्ट्स, ऐप्स, हिसाब और अलार्म, सब ऑफ़लाइन चलते हैं। वेब सर्च आपके ब्राउज़र या चुने हुए ऐप में खुलती है।",
@@ -990,6 +1002,26 @@ var GEST = [
   ["A soft glow that matches each video","हर वीडियो के रंग से मिलती हल्की रोशनी"],
   ["Folders, Recent and Favourites one swipe away","फ़ोल्डर्स, Recent और फ़ेवरेट्स बस एक स्वाइप दूर"]
 ];
+/* ---------- features at a glance ---------- */
+var GLANCE = [
+  {en:["🔍 Search","Directions · Save contacts · Sums · Alarms · Tasks · Open apps · AI"],
+   hi:["🔍 सर्च","रास्ता · कॉन्टैक्ट सेव · हिसाब · अलार्म · टास्क · ऐप खोलो · AI"]},
+  {en:["⚡ Dot shortcuts",".yt · .shop · .ai · message.name"],
+   hi:["⚡ डॉट शॉर्टकट",".yt · .shop · .ai · मैसेज.नाम"]},
+  {en:["📲 From anywhere","Home screen bar · Quick Settings · Edge strip · Select text · Mic"],
+   hi:["📲 कहीं से भी","होम बार · क्विक सेटिंग्स · एज स्ट्रिप · टेक्स्ट सेलेक्ट · माइक"]},
+  {en:["▶ Player","Full-screen feed · 2x · Skip · Rotation · Background play · On this day"],
+   hi:["▶ प्लेयर","फ़ुल-स्क्रीन फ़ीड · 2x · स्किप · रोटेशन · बैकग्राउंड · On this day"]},
+  {en:["📦 Clean-up","See sizes · Delete · Rename · Move to another folder"],
+   hi:["📦 सफ़ाई","साइज़ दिखता है · डिलीट · नाम बदलो · फ़ोल्डर बदलो"]},
+  {en:["➕ More","📝 Snippets · 🔖 Saved links · 🔒 No account, works offline"],
+   hi:["➕ और भी","📝 स्निपेट्स · 🔖 लिंक्स · 🔒 बिना अकाउंट, ऑफ़लाइन"]}
+];
+function renderGlance() {
+  $("glance").innerHTML = GLANCE.map(function (g) {
+    return '<div class="gl-row"><b>' + esc(g[lang][0]) + "</b><span>" + esc(g[lang][1]) + "</span></div>";
+  }).join("");
+}
 function renderGest() {
   $("gest").innerHTML = GEST.map(function (g) { return "<li>" + esc(g[lang === "hi" ? 1 : 0]) + "</li>"; }).join("");
 }
@@ -1057,7 +1089,7 @@ function applyLang() {
   document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { el.placeholder = t(el.getAttribute("data-i18n-ph")); });
   langBtn.textContent = lang === "en" ? "हिंदी" : "English";
   langBtn.setAttribute("aria-label", lang === "en" ? "हिंदी में पढ़ें" : "Read in English");
-  renderChips(); renderKeys(); renderPowers(); renderGest(); renderVids(); renderSnips(); render();
+  renderChips(); renderKeys(); renderPowers(); renderGest(); renderGlance(); renderVids(); renderSnips(); render();
   document.documentElement.classList.remove("lang-wait");
 }
 langBtn.addEventListener("click", function () {
