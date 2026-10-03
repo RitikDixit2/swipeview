@@ -79,7 +79,7 @@ h1 span{display:block}
 
 /* The phone */
 .stage{display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0}
-.phone{position:relative;width:min(100%,350px);height:610px;border-radius:46px;padding:9px;background:#06050D;box-shadow:0 0 0 1px rgba(255,255,255,.09),0 40px 90px -30px rgba(143,110,255,.6),0 0 140px -40px rgba(63,167,255,.5)}
+.phone{position:relative;width:min(100%,350px);height:610px;height:clamp(470px,calc(100vh - 150px),610px);height:clamp(470px,calc(100svh - 150px),610px);border-radius:46px;padding:9px;background:#06050D;box-shadow:0 0 0 1px rgba(255,255,255,.09),0 40px 90px -30px rgba(143,110,255,.6),0 0 140px -40px rgba(63,167,255,.5)}
 .screen{height:100%;border-radius:37px;background:var(--screen);display:flex;flex-direction:column;overflow:hidden;position:relative}
 .sb{display:flex;justify-content:space-between;padding:13px 24px 2px;font:600 12px var(--f-body);color:var(--faint);font-variant-numeric:tabular-nums}
 .box{margin:8px 12px 6px;display:flex;align-items:center;gap:8px;padding:9px 10px 9px 12px;border-radius:20px;border:1.5px solid transparent;background:linear-gradient(var(--raised-2),var(--raised-2)) padding-box,var(--accent) border-box}
@@ -125,10 +125,14 @@ h1 span{display:block}
 .eng:hover{color:var(--text)}
 .ptoast{position:absolute;left:50%;top:60px;transform:translate(-50%,-8px);width:max-content;max-width:86%;padding:9px 14px;border-radius:14px;background:rgba(32,29,60,.95);border:1px solid var(--line-2);font:500 13.5px var(--f-body);line-height:1.35;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.45);z-index:3}
 .ptoast.on{opacity:1;transform:translate(-50%,0)}
-.try-label{font-size:14.5px;color:var(--mute);text-align:center;margin:4px 0 0}
-.examples{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:440px}
-.chip{font:500 13px var(--f-mono);padding:6px 11px;border-radius:999px;background:transparent;border:1px solid var(--line-2);color:var(--mute);cursor:pointer}
+.try-label{font-size:14.5px;color:var(--mute);text-align:center;margin:0;max-width:22em}
+/* Examples live inside the phone, under the box, so the tap and its result are on screen together. */
+.exrow{display:flex;gap:6px;overflow-x:auto;padding:0 12px 8px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 85%,transparent);mask-image:linear-gradient(90deg,#000 85%,transparent)}
+.exrow::-webkit-scrollbar{display:none}
+.exrow .chip:last-child{margin-right:28px}
+.chip{flex:none;font:500 12px var(--f-mono);padding:5px 10px;border-radius:999px;background:transparent;border:1px solid var(--line-2);color:var(--mute);cursor:pointer;white-space:nowrap}
 .chip:hover{color:var(--text);border-color:var(--violet)}
+.chip.on{color:var(--text);border-color:var(--violet);background:rgba(143,110,255,.16)}
 .demo-note{font-size:12.5px;color:var(--faint);margin:0}
 
 /* Sections */
@@ -140,20 +144,28 @@ html[lang="hi"] h1,html[lang="hi"] h2{line-height:1.28;letter-spacing:0}
 html[lang="hi"] h1{font-size:clamp(2.3rem,5vw,3.9rem)}
 
 .keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
-.key{background:none;border:0;text-align:left;padding:16px 14px;border-radius:16px;cursor:pointer;color:var(--text);display:flex;flex-direction:column;gap:4px}
-.key:hover{background:var(--raised)}
+.key{padding:16px 14px;color:var(--text);display:flex;flex-direction:column;gap:4px}
 .key code{font:500 clamp(1.5rem,2.6vw,2rem) var(--f-mono);letter-spacing:-.02em}
 .key code b{color:var(--violet);font-weight:500}
 .key span{color:var(--mute);font-size:15px;line-height:1.35}
+.key small{font:500 12.5px var(--f-mono);color:var(--faint);margin-top:4px;overflow-wrap:anywhere}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
 .pw{background:var(--raised);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:8px;min-width:0}
 .pw h3{font:600 19.5px var(--f-display);margin:0;line-height:1.25}
 .pw p{margin:0;color:var(--mute);font-size:15.5px;flex:1}
-.pw .ex{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
-.exq{font:500 13px var(--f-mono);color:var(--text);background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:10px;padding:6px 10px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.trylink{background:none;border:0;color:var(--violet);font:600 15px var(--f-body);cursor:pointer;white-space:nowrap;padding:4px 2px}
-.trylink:hover{color:var(--text)}
+/* Each card shows what you type and what comes back, drawn from the same logic as the phone. */
+.demo{margin-top:12px;padding:12px;border-radius:16px;background:rgba(0,0,0,.28);border:1px solid var(--line);display:flex;flex-direction:column;gap:6px;min-width:0}
+.dq{display:flex;align-items:center;gap:8px;padding:7px 11px;border-radius:13px;font:500 13.5px var(--f-mono);border:1.5px solid transparent;background:linear-gradient(var(--raised-2),var(--raised-2)) padding-box,var(--accent) border-box;min-width:0}
+.dq span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.darrow{color:var(--faint);font-size:13px;line-height:1;padding-left:14px}
+.dres{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.dres .sbtn{font-size:13px;padding:6px 10px;cursor:default}
+.dres .sbtn:hover{border-color:var(--line-2)}
+.dres .sbtn.primary:hover{border-color:transparent}
+.dres .ans{font:700 22px "Outfit",sans-serif}
+.mico{width:18px;height:18px;border-radius:6px;display:inline-grid;place-items:center;color:#fff;font:700 10px "Outfit",sans-serif;flex:none}
+.mico svg{width:12px;height:12px}
 
 .ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:32px 28px}
 .way svg{width:64px;height:64px;color:var(--mute);display:block}
@@ -265,6 +277,7 @@ footer a{color:var(--mute)}
     </div>
 
     <div class="stage">
+      <p class="try-label" data-i18n="try.label">Try it here. Type in the box, or tap an example under it.</p>
       <div class="phone" id="phone">
         <div class="screen">
           <div class="sb"><span>10:08</span><span>5G ▮▮▮ 84%</span></div>
@@ -274,14 +287,13 @@ footer a{color:var(--mute)}
             <button class="iconbtn" id="clear" type="button" aria-label="Clear" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
             <button class="iconbtn" id="mic" type="button" aria-label="Voice"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button>
           </div>
+          <div class="exrow" id="examples"></div>
           <div class="res" id="res"></div>
           <div class="smart" id="smart"></div>
           <div class="bar" id="bar"></div>
           <div class="ptoast" id="ptoast" role="status" aria-live="polite"></div>
         </div>
       </div>
-      <p class="try-label" data-i18n="try.label">Try it here. Type in the box or tap an example.</p>
-      <div class="examples" id="examples"></div>
       <p class="demo-note" data-i18n="demo">Demo. The contacts and apps in it are examples.</p>
     </div>
   </div>
@@ -456,10 +468,10 @@ en: {
   "hero.eyebrow":"Swipe View · for Android","hero.t1":"Type anything.","hero.t2":"Your phone does the right thing.",
   "hero.lead":"One search box that opens YouTube, Maps, WhatsApp and Amazon, does your sums, sets alarms and saves contacts. And the videos already on your phone play like Reels.",
   "cta.play":"Get it on Google Play","cta.scan":"Scan with your phone camera","hero.facts":"Free · No account · Works offline",
-  "try.label":"Try it here. Type in the box or tap an example.","demo":"Demo. The contacts and apps in it are examples.","ph":"Type, search, share…",
+  "try.label":"Try it here. Type in the box, or tap an example under it.","demo":"Demo. The contacts and apps in it are examples.","ph":"Type, search, share…",
   "sc.eyebrow":"Dot shortcuts","sc.title":"Add a dot. Pick where it goes.",
   "sc.body":"Type .yt before or after your words and the search goes straight to YouTube. A dot on its own lists every shortcut. You can change the words, and even the dot.",
-  "pw.eyebrow":"Search","pw.title":"One box. A lot of jobs.","pw.body":"All of these work from the same box. Tap Try it to see one on the phone above.","try":"Try it",
+  "pw.eyebrow":"Search","pw.title":"One box. A lot of jobs.","pw.body":"All of these work from the same box. Each card shows what you type and what you get.",
   "any.eyebrow":"Always one tap away","any.title":"Search from anywhere on your phone",
   "w1t":"Home screen search bar","w1b":"Dark, white, or matched to your wallpaper.",
   "w2t":"Quick Settings tile","w2b":"Pull down from the top of the screen and tap Swipe Search.",
@@ -509,10 +521,10 @@ hi: {
   "hero.eyebrow":"Swipe View · Android के लिए","hero.t1":"कुछ भी टाइप करो।","hero.t2":"सही काम फ़ोन खुद करेगा।",
   "hero.lead":"एक सर्च बॉक्स जो YouTube, Maps, WhatsApp और Amazon खोलता है, हिसाब लगाता है, अलार्म लगाता है और कॉन्टैक्ट सेव करता है। और फ़ोन में पड़े आपके वीडियो Reels की तरह चलते हैं।",
   "cta.play":"Google Play से डाउनलोड करें","cta.scan":"फ़ोन के कैमरे से स्कैन करो","hero.facts":"फ़्री · कोई अकाउंट नहीं · ऑफ़लाइन चलता है",
-  "try.label":"यहीं ट्राई करो। बॉक्स में टाइप करो या कोई उदाहरण टैप करो।","demo":"डेमो। इसमें दिखे कॉन्टैक्ट और ऐप्स सिर्फ़ उदाहरण हैं।","ph":"टाइप करो, सर्च करो, शेयर करो…",
+  "try.label":"यहीं ट्राई करो। बॉक्स में टाइप करो, या उसके नीचे कोई उदाहरण टैप करो।","demo":"डेमो। इसमें दिखे कॉन्टैक्ट और ऐप्स सिर्फ़ उदाहरण हैं।","ph":"टाइप करो, सर्च करो, शेयर करो…",
   "sc.eyebrow":"डॉट शॉर्टकट","sc.title":"डॉट लगाओ, जगह चुनो।",
   "sc.body":"शब्दों के पहले या बाद में .yt लिखो, सर्च सीधे YouTube पर जाएगी। सिर्फ़ डॉट लिखो तो सारे शॉर्टकट दिख जाते हैं। शॉर्टकट के शब्द, और डॉट भी, आप बदल सकते हो।",
-  "pw.eyebrow":"सर्च","pw.title":"एक बॉक्स, ढेर सारे काम।","pw.body":"ये सब एक ही बॉक्स से होता है। ऊपर वाले फ़ोन में देखने के लिए “ट्राई करो” टैप करो।","try":"ट्राई करो",
+  "pw.eyebrow":"सर्च","pw.title":"एक बॉक्स, ढेर सारे काम।","pw.body":"ये सब एक ही बॉक्स से होता है। हर कार्ड में दिखा है कि क्या लिखना है और क्या मिलेगा।",
   "any.eyebrow":"हमेशा एक टैप दूर","any.title":"फ़ोन में कहीं से भी सर्च करो",
   "w1t":"होम स्क्रीन सर्च बार","w1b":"डार्क, व्हाइट या आपके वॉलपेपर जैसा।",
   "w2t":"क्विक सेटिंग्स टाइल","w2b":"स्क्रीन के ऊपर से नीचे खींचो और Swipe Search टैप करो।",
@@ -833,6 +845,7 @@ function render() {
   smart.innerHTML = sm;
   bar.hidden = !showBar;
   if (showBar) bar.innerHTML = o.bar.map(function (id) { return engineBtn(id, o.q, "eng"); }).join("");
+  markChip();
 }
 
 var toastEl = $("ptoast"), toastTimer;
@@ -857,7 +870,8 @@ clearBtn.addEventListener("click", function () { stopAuto(); input.value = ""; r
 $("mic").addEventListener("click", function () { stopAuto(); toast(t("t.mic")); });
 
 /* ---------- examples and the self-typing demo ---------- */
-var EX = [".yt lofi songs", "Delhi to Mumbai", "18 x 12", "Rohan 98765 43210", "7", "remind me to call mom tomorrow", "how are you.mummy", "Camera", "."];
+var EX = [".yt lofi songs", "Delhi to Mumbai", "18 x 12", "Rohan 98765 43210", "7", "remind me to call mom tomorrow", "how are you.mummy",
+  "priya", "Camera", "plan a 3 day Goa trip.ai", "."];
 function examples() { return EX.map(function (x) { return lang === "hi" && x === "Delhi to Mumbai" ? "Delhi se Mumbai" : x; }); }
 
 var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -880,11 +894,6 @@ function step() {
   }
 }
 function stopAuto() { auto = false; if (timer) clearTimeout(timer); timer = null; }
-function load(text) {
-  stopAuto();
-  input.value = text; render();
-  $("phone").scrollIntoView({behavior: reduce ? "auto" : "smooth", block: "center"});
-}
 if ("IntersectionObserver" in window) {
   new IntersectionObserver(function (en) {
     visible = en[0].isIntersecting;
@@ -896,6 +905,12 @@ function renderChips() {
   $("examples").innerHTML = examples().map(function (x) {
     return '<button type="button" class="chip" data-ex="' + esc(x) + '">' + esc(x === "." ? (lang === "hi" ? ". (सारे शॉर्टकट)" : ". (all shortcuts)") : x) + "</button>";
   }).join("");
+  markChip();
+}
+// Lights up the example that's in the box, so it's clear which one is showing.
+function markChip() {
+  var chips = $("examples").querySelectorAll(".chip");
+  for (var i = 0; i < chips.length; i++) chips[i].classList.toggle("on", chips[i].getAttribute("data-ex") === input.value);
 }
 $("examples").addEventListener("click", function (ev) {
   var b = ev.target.closest("[data-ex]"); if (b) { stopAuto(); input.value = b.getAttribute("data-ex"); render(); }
@@ -903,7 +918,7 @@ $("examples").addEventListener("click", function (ev) {
 
 /* ---------- shortcut keys ---------- */
 var KEYS = [
-  {k:"g", fill:".g ", en:"Google", hi:"Google"},
+  {k:"g", fill:".g cricket score", en:"Google", hi:"Google"},
   {k:"yt", fill:".yt lofi songs", en:"YouTube", hi:"YouTube"},
   {k:"map", fill:".map petrol pump", en:"Maps", hi:"Maps"},
   {k:"fk", fill:".fk phone cover", en:"Flipkart", hi:"Flipkart"},
@@ -916,7 +931,7 @@ var KEYS = [
 ];
 function renderKeys() {
   $("keys").innerHTML = KEYS.map(function (x) {
-    return '<button type="button" class="key" data-load="' + esc(x.fill) + '"><code><b>.</b>' + x.k + "</code><span>" + esc(x[lang]) + "</span></button>";
+    return '<div class="key"><code><b>.</b>' + x.k + "</code><span>" + esc(x[lang]) + '</span><small>' + esc(x.fill) + "</small></div>";
   }).join("");
 }
 
@@ -938,13 +953,29 @@ var POWERS = [
 function renderPowers() {
   $("powers").innerHTML = POWERS.map(function (p) {
     var ex = lang === "hi" && p.exHi ? p.exHi : p.ex, tx = p[lang];
-    return '<div class="pw"><h3>' + esc(tx[0]) + "</h3><p>" + esc(tx[1]) + '</p><div class="ex"><span class="exq">' + esc(ex) +
-      '</span><button type="button" class="trylink" data-load="' + esc(ex) + '">' + esc(t("try")) + " →</button></div></div>";
+    return '<div class="pw"><h3>' + esc(tx[0]) + "</h3><p>" + esc(tx[1]) + "</p>" + preview(ex) + "</div>";
   }).join("");
 }
-document.addEventListener("click", function (ev) {
-  var b = ev.target.closest("[data-load]"); if (b) load(b.getAttribute("data-load"));
-});
+// What the phone would show for this text, as a still picture: the same
+// analyze() the live phone uses, so a card can't promise something it doesn't do.
+function preview(ex) {
+  var o = analyze(ex), items = [];
+  function pill(inner, primary) { return '<span class="sbtn' + (primary ? " primary" : "") + '">' + inner + "</span>"; }
+  function mico(bg, g) { return '<span class="mico" style="background:' + bg + '">' + g + "</span>"; }
+  if (o.kind === "focus") {
+    items = o.to.map(function (id) { return pill(mico(E[id].c, E[id].g) + esc(nm(id))); });
+  } else if (o.kind === "msg") {
+    items = [pill(WA + esc(o.contact.name) + " · " + esc(t("waMsg")), true)];
+  } else {
+    if (o.answer != null) items.push('<span class="ans grad">= ' + esc(o.answer) + "</span>");
+    o.smart.forEach(function (b) { items.push(pill((b.icon || "") + esc(b.label), b.primary)); });
+    o.apps.forEach(function (a) { items.push(pill(mico(a[1], a[0][0]) + esc(a[0]))); });
+    o.contacts.forEach(function (c) { items.push(pill(mico("#1F6E43", WA) + mico("#3A3470", CALL) + esc(c.name))); });
+    if (!items.length) items = o.bar.slice(0, 4).map(function (id) { return pill(mico(E[id].c, E[id].g) + esc(nm(id))); });
+  }
+  var glyph = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="url(#gA)" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.6 20 20.2"/></svg>';
+  return '<div class="demo"><div class="dq">' + glyph + "<span>" + esc(ex) + '</span></div><div class="darrow" aria-hidden="true">↓</div><div class="dres">' + items.join("") + "</div></div>";
+}
 
 /* ---------- player gestures ---------- */
 var GEST = [
