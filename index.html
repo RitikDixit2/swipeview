@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -10,7 +10,20 @@
 <meta property="og:description" content="One search box for YouTube, Maps, WhatsApp, contacts, sums and alarms. And your own videos play like Reels. Free for Android.">
 <meta property="og:url" content="https://ritikdixit2.github.io/swipeview/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238F6EFF'/%3E%3Cstop offset='1' stop-color='%233FA7FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='28' height='28' rx='7' fill='%230A0913'/%3E%3Crect x='7' y='3' width='14' height='22' rx='4' fill='none' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M11.5 9.5v9l6.5-4.5z' fill='url(%23g)'/%3E%3C/svg%3E">
-<style>[hidden]{display:none!important}img{max-width:100%}</style>
+<style>[hidden]{display:none!important}img{max-width:100%}html.lang-wait body{visibility:hidden}</style>
+<script>
+// The HTML is written in English and the page script swaps in Hindi. Hide the page
+// until it has, so Hindi visitors don't see English flash first. The timeout shows
+// the page anyway if that script never runs.
+(function () {
+  var en = false;
+  try { en = localStorage.getItem("sv-lang") === "en"; } catch (e) {}
+  if (en) return;
+  var root = document.documentElement;
+  root.classList.add("lang-wait");
+  setTimeout(function () { root.classList.remove("lang-wait"); }, 2000);
+})();
+</script>
 <title>Swipe View</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -433,8 +446,9 @@ footer a{color:var(--mute)}
 var PLAY = "https://play.google.com/store/apps/details?id=com.swipeview.app";
 var POLICY = "https://sites.google.com/view/swipe-view-vertical-video-play";
 
-var lang = "en";
-try { if (localStorage.getItem("sv-lang") === "hi") lang = "hi"; } catch (e) {}
+// Hindi first. A visitor who switched to English keeps English on their next visit.
+var lang = "hi";
+try { if (localStorage.getItem("sv-lang") === "en") lang = "en"; } catch (e) {}
 
 var STR = {
 en: {
@@ -1013,6 +1027,7 @@ function applyLang() {
   langBtn.textContent = lang === "en" ? "हिंदी" : "English";
   langBtn.setAttribute("aria-label", lang === "en" ? "हिंदी में पढ़ें" : "Read in English");
   renderChips(); renderKeys(); renderPowers(); renderGest(); renderVids(); renderSnips(); render();
+  document.documentElement.classList.remove("lang-wait");
 }
 langBtn.addEventListener("click", function () {
   lang = lang === "en" ? "hi" : "en";
