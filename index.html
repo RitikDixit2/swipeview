@@ -1,0 +1,1045 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Type anything and your phone does the right thing. One search box for YouTube, Maps, WhatsApp, contacts, sums and alarms, and a vertical player for the videos on your phone.">
+<meta name="theme-color" content="#0A0913">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Swipe View: type anything, your phone does the right thing">
+<meta property="og:description" content="One search box for YouTube, Maps, WhatsApp, contacts, sums and alarms. And your own videos play like Reels. Free for Android.">
+<meta property="og:url" content="https://ritikdixit2.github.io/swipeview/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238F6EFF'/%3E%3Cstop offset='1' stop-color='%233FA7FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='28' height='28' rx='7' fill='%230A0913'/%3E%3Crect x='7' y='3' width='14' height='22' rx='4' fill='none' stroke='%23fff' stroke-width='2'/%3E%3Cpath d='M11.5 9.5v9l6.5-4.5z' fill='url(%23g)'/%3E%3C/svg%3E">
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Swipe View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Mukta:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap">
+<style>
+/* Layout: one dark product page in the app's own look. The hero is a working phone
+   running the search; later sections pair short copy with small working demos. */
+:root{
+  color-scheme:dark;
+  --bg:#0A0913; --raised:#131126; --raised-2:#1B1834; --screen:#0D0B1A;
+  --line:rgba(232,228,255,.09); --line-2:rgba(232,228,255,.16);
+  --text:#F3F1FB; --mute:#A9A4C6; --faint:#77729A;
+  --violet:#9A7DFF; --azure:#3FA7FF; --ok:#3DDC97; --pink:#FF8FB8;
+  --accent:linear-gradient(115deg,#8F6EFF 0%,#5B8CFF 55%,#3FA7FF 100%);
+  --f-display:"Outfit","Mukta",system-ui,sans-serif;
+  --f-body:"Mukta","Outfit",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding-inline:20px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--azure);outline-offset:2px;border-radius:8px}
+.grad{background:var(--accent);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(10,9,19,.84);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:18px;height:62px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font:700 21px "Outfit",sans-serif;letter-spacing:-.01em}
+.links{display:flex;gap:24px;margin-left:auto}
+.links a{color:var(--mute);text-decoration:none;font-size:15.5px}
+.links a:hover{color:var(--text)}
+.lang{border:1px solid var(--line-2);background:transparent;color:var(--text);border-radius:999px;padding:5px 13px;font:600 14.5px var(--f-body);cursor:pointer}
+.lang:hover{border-color:var(--violet)}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:13px 22px;font:600 16.5px var(--f-body);text-decoration:none;color:#fff;background:var(--accent);box-shadow:0 12px 32px -12px rgba(111,120,255,.75);border:0;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.08)}
+.btn.small{padding:8px 15px;font-size:14.5px;box-shadow:none}
+@media(max-width:780px){.links{display:none}.top .lang{margin-left:auto}.top .btn.small{display:none}}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding-block:64px 84px}
+.eyebrow{font:600 13px var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--violet);margin:0}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(2.5rem,5.6vw,4.4rem);line-height:1.02;letter-spacing:-.028em;margin:14px 0 20px;text-wrap:balance}
+h1 span{display:block}
+.lead{color:var(--mute);font-size:19px;max-width:32em;margin:0}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin-top:30px}
+.qr-mini{display:flex;align-items:center;gap:12px;color:var(--faint);font-size:14.5px;max-width:13em;line-height:1.35}
+.qr-box{background:#fff;border-radius:12px;padding:6px;line-height:0;flex:none;color:#0A0913;font-size:11px}
+.qr-box img,.qr-box canvas{display:block;max-width:100%}
+.facts{margin:24px 0 0;color:var(--faint);font-size:15px}
+@media(max-width:900px){.hero{grid-template-columns:1fr;gap:44px;padding-block:40px 60px}}
+
+/* The phone */
+.stage{display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0}
+.phone{position:relative;width:min(100%,350px);height:610px;border-radius:46px;padding:9px;background:#06050D;box-shadow:0 0 0 1px rgba(255,255,255,.09),0 40px 90px -30px rgba(143,110,255,.6),0 0 140px -40px rgba(63,167,255,.5)}
+.screen{height:100%;border-radius:37px;background:var(--screen);display:flex;flex-direction:column;overflow:hidden;position:relative}
+.sb{display:flex;justify-content:space-between;padding:13px 24px 2px;font:600 12px var(--f-body);color:var(--faint);font-variant-numeric:tabular-nums}
+.box{margin:8px 12px 6px;display:flex;align-items:center;gap:8px;padding:9px 10px 9px 12px;border-radius:20px;border:1.5px solid transparent;background:linear-gradient(var(--raised-2),var(--raised-2)) padding-box,var(--accent) border-box}
+.box:focus-within{box-shadow:0 0 0 4px rgba(143,110,255,.2)}
+.box input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--text);font:500 16px var(--f-body)}
+.box input::placeholder{color:var(--faint)}
+.iconbtn{background:none;border:0;color:var(--mute);padding:3px;cursor:pointer;display:grid;place-items:center;border-radius:50%}
+.iconbtn:hover{color:var(--text)}
+.res{flex:1;min-height:0;overflow-y:auto;padding:6px 12px 10px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin}
+.res>:first-child{margin-top:auto}
+.card{background:var(--raised);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.hint{color:var(--mute);font-size:14px;line-height:1.4}
+.note{color:var(--pink);font-size:14px;line-height:1.4}
+.sec-h{font:700 11px var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:2px 2px -4px}
+.answer{display:block;font:700 34px "Outfit",sans-serif;cursor:pointer;border:0;padding:0;text-align:left;font-variant-numeric:tabular-nums}
+.route{display:flex;align-items:center;gap:10px;font:600 17px var(--f-display)}
+.route i{font-style:normal;color:var(--violet)}
+.apps{display:flex;gap:10px;overflow-x:auto;padding-bottom:2px}
+.app{display:flex;flex-direction:column;align-items:center;gap:5px;width:56px;flex:none;font:500 11.5px var(--f-body);color:var(--mute);background:none;border:0;cursor:pointer;padding:0}
+.ico{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;color:#fff;font:700 15px "Outfit",sans-serif;flex:none}
+.app .ico{width:46px;height:46px;border-radius:14px;font-size:18px}
+.crow{display:flex;align-items:center;gap:10px}
+.av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:700 14px "Outfit",sans-serif;background:#2C2850;color:#DCD5FF;flex:none}
+.cname{font-weight:600;font-size:15px;line-height:1.2}
+.cnum{color:var(--faint);font-size:13px;font-variant-numeric:tabular-nums}
+.cact{margin-left:auto;display:flex;gap:6px}
+.round{width:34px;height:34px;border-radius:50%;border:0;display:grid;place-items:center;cursor:pointer}
+.lrow{display:flex;align-items:baseline;gap:14px;width:100%;padding:8px 10px;background:none;border:0;border-radius:12px;color:var(--text);text-align:left;cursor:pointer;font:500 15px var(--f-body)}
+.lrow:hover{background:var(--raised)}
+.lrow code{font:500 15px var(--f-mono);color:var(--violet);min-width:3.6em}
+.empty{color:var(--faint);text-align:center;font-size:15px;padding:0 10px 30px;line-height:1.45}
+.smart{display:flex;flex-wrap:wrap;gap:8px;padding:0 12px 10px}
+.smart:empty{display:none}
+.sbtn{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;background:var(--raised-2);border:1px solid var(--line-2);color:var(--text);font:600 14px var(--f-body);text-decoration:none;cursor:pointer;line-height:1.2}
+.sbtn:hover{border-color:var(--violet)}
+.sbtn.primary{background:var(--accent);border-color:transparent}
+.targets{display:flex;gap:10px;padding:0 12px 16px;flex-wrap:wrap}
+.target{flex:1 1 0;min-width:86px;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 6px;border-radius:18px;background:var(--raised-2);border:1px solid var(--line-2);color:var(--text);text-decoration:none;font:600 14px var(--f-body);cursor:pointer}
+.target:hover{border-color:var(--violet)}
+.target .ico{width:46px;height:46px;border-radius:14px;font-size:19px}
+.bar{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;padding:10px 6px 16px;border-top:1px solid var(--line);background:rgba(255,255,255,.015)}
+.eng{display:flex;flex-direction:column;align-items:center;gap:5px;text-decoration:none;color:var(--mute);font:500 11px var(--f-body);background:none;border:0;cursor:pointer;padding:2px 0;min-width:0}
+.eng:hover{color:var(--text)}
+.ptoast{position:absolute;left:50%;top:60px;transform:translate(-50%,-8px);width:max-content;max-width:86%;padding:9px 14px;border-radius:14px;background:rgba(32,29,60,.95);border:1px solid var(--line-2);font:500 13.5px var(--f-body);line-height:1.35;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.45);z-index:3}
+.ptoast.on{opacity:1;transform:translate(-50%,0)}
+.try-label{font-size:14.5px;color:var(--mute);text-align:center;margin:4px 0 0}
+.examples{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:440px}
+.chip{font:500 13px var(--f-mono);padding:6px 11px;border-radius:999px;background:transparent;border:1px solid var(--line-2);color:var(--mute);cursor:pointer}
+.chip:hover{color:var(--text);border-color:var(--violet)}
+.demo-note{font-size:12.5px;color:var(--faint);margin:0}
+
+/* Sections */
+section{padding-block:88px;border-top:1px solid var(--line);scroll-margin-top:62px}
+.sh{max-width:740px;margin-bottom:44px}
+h2{font-family:var(--f-display);font-weight:700;font-size:clamp(1.9rem,3.8vw,2.9rem);line-height:1.08;letter-spacing:-.022em;margin:10px 0 14px;text-wrap:balance}
+.sh p{color:var(--mute);font-size:18px;margin:0;max-width:40em}
+html[lang="hi"] h1,html[lang="hi"] h2{line-height:1.28;letter-spacing:0}
+html[lang="hi"] h1{font-size:clamp(2.3rem,5vw,3.9rem)}
+
+.keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
+.key{background:none;border:0;text-align:left;padding:16px 14px;border-radius:16px;cursor:pointer;color:var(--text);display:flex;flex-direction:column;gap:4px}
+.key:hover{background:var(--raised)}
+.key code{font:500 clamp(1.5rem,2.6vw,2rem) var(--f-mono);letter-spacing:-.02em}
+.key code b{color:var(--violet);font-weight:500}
+.key span{color:var(--mute);font-size:15px;line-height:1.35}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.pw{background:var(--raised);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.pw h3{font:600 19.5px var(--f-display);margin:0;line-height:1.25}
+.pw p{margin:0;color:var(--mute);font-size:15.5px;flex:1}
+.pw .ex{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+.exq{font:500 13px var(--f-mono);color:var(--text);background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:10px;padding:6px 10px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trylink{background:none;border:0;color:var(--violet);font:600 15px var(--f-body);cursor:pointer;white-space:nowrap;padding:4px 2px}
+.trylink:hover{color:var(--text)}
+
+.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:32px 28px}
+.way svg{width:64px;height:64px;color:var(--mute);display:block}
+.way h3{font:600 18.5px var(--f-display);margin:14px 0 4px}
+.way p{margin:0;color:var(--mute);font-size:15.5px}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:40px}}
+.points{display:flex;flex-direction:column;gap:28px}
+.point h3{font:600 21px var(--f-display);margin:0 0 6px;line-height:1.25}
+.point p{color:var(--mute);margin:0}
+.panel{background:var(--raised);border:1px solid var(--line);border-radius:22px;padding:8px}
+.vrow{display:flex;align-items:center;gap:12px;padding:10px;border-radius:14px;cursor:pointer;transition:opacity .3s}
+.vrow:hover{background:rgba(255,255,255,.03)}
+.vrow input{accent-color:#8F6EFF;width:18px;height:18px;flex:none;margin:0}
+.thumb{width:50px;height:50px;border-radius:11px;flex:none;display:grid;place-items:center}
+.vtext{min-width:0;flex:1}
+.vname{font-size:15px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vmeta{font-size:13px;color:var(--faint)}
+.size{font:600 13px var(--f-mono);padding:4px 8px;border-radius:8px;background:rgba(255,255,255,.06);white-space:nowrap;flex:none}
+.size.big{color:#FFC2DA;background:rgba(255,111,174,.15)}
+.panel-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 10px 8px;border-top:1px solid var(--line);margin-top:4px;flex-wrap:wrap;min-height:58px}
+.panel-foot .hint{font-size:14.5px}
+.freed{color:var(--ok);font-weight:600}
+.btn[disabled]{opacity:.4;cursor:default;filter:none}
+.textbtn{background:none;border:0;color:var(--violet);font:600 14.5px var(--f-body);cursor:pointer;padding:4px}
+.full{margin-top:64px}
+.full h3{font:600 22px var(--f-display);margin:0 0 8px}
+.gest{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0 36px;padding:0;margin:0;list-style:none}
+.gest li{padding:14px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:baseline}
+.gest li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;transform:translateY(-2px)}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.two .pw{gap:12px}
+.snips{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.snip{display:flex;align-items:center;gap:12px;padding:11px 12px 11px 14px;border-radius:14px;background:rgba(0,0,0,.24);border:1px solid var(--line)}
+.snip span{flex:1;min-width:0;font-size:15px;line-height:1.4}
+.snip .sbtn{flex:none}
+.urlbox{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.ulabel{font:700 11px var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.url{font:500 13.5px var(--f-mono);word-break:break-all;line-height:1.6;padding:11px 14px;border-radius:12px;background:rgba(0,0,0,.24);border:1px solid var(--line)}
+.junk{color:var(--pink);text-decoration:line-through;text-decoration-thickness:1.5px}
+
+.priv{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px 28px}
+.pv{display:flex;gap:12px;align-items:flex-start;font-size:17px}
+.pv svg{flex:none;margin-top:4px}
+.policy{display:inline-block;margin-top:34px;color:var(--violet);font-weight:600;text-decoration:none}
+.policy:hover{color:var(--text)}
+
+.get{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center;border:1px solid var(--line);border-radius:30px;padding:48px;background:radial-gradient(120% 140% at 100% 0%,rgba(63,167,255,.16),transparent 55%),radial-gradient(120% 140% at 0% 100%,rgba(143,110,255,.18),transparent 55%),var(--raised)}
+.get h2{margin-top:0}
+.get p{color:var(--mute);font-size:18px;margin:0 0 26px;max-width:30em}
+.qr-big{justify-self:center;background:#fff;border-radius:22px;padding:14px;line-height:0;color:#0A0913;font-size:13px}
+@media(max-width:760px){.get{grid-template-columns:1fr;padding:30px 22px}.qr-big{justify-self:start}}
+.faq{max-width:780px;margin-top:64px}
+.faq h3{font:600 22px var(--f-display);margin:0 0 6px}
+details{border-bottom:1px solid var(--line);padding:16px 0}
+summary{cursor:pointer;font-weight:600;font-size:17.5px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--violet);font-size:22px;line-height:1}
+details[open] summary::after{content:"−"}
+details p{color:var(--mute);margin:8px 0 0}
+
+footer{padding-block:36px 44px;color:var(--faint);font-size:14.5px;border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;align-items:center}
+footer a{color:var(--mute)}
+.mail{user-select:all;color:var(--mute)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs><linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8F6EFF"/><stop offset="1" stop-color="#3FA7FF"/></linearGradient></defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Swipe View">
+      <svg viewBox="0 0 28 28" width="26" height="26" aria-hidden="true"><rect x="6" y="2" width="16" height="24" rx="4.5" fill="none" stroke="#fff" stroke-width="2"/><path d="M11.5 9.3v9.4l7.2-4.7z" fill="url(#gA)"/></svg>
+      <span>Swipe <span class="grad">View</span></span>
+    </a>
+    <nav class="links">
+      <a href="#search" data-i18n="nav.search">Search</a>
+      <a href="#player" data-i18n="nav.player">Player</a>
+      <a href="#privacy" data-i18n="nav.privacy">Privacy</a>
+    </nav>
+    <button class="lang" id="lang" type="button">हिंदी</button>
+    <a class="btn small" href="#get" data-i18n="nav.get">Get the app</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow" data-i18n="hero.eyebrow">Swipe View · for Android</p>
+      <h1><span class="grad" data-i18n="hero.t1">Type anything.</span><span data-i18n="hero.t2">Your phone does the right thing.</span></h1>
+      <p class="lead" data-i18n="hero.lead">One search box that opens YouTube, Maps, WhatsApp and Amazon, does your sums, sets alarms and saves contacts. And the videos already on your phone play like Reels.</p>
+      <div class="cta-row">
+        <a class="btn play-link" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="#fff"/></svg>
+          <span data-i18n="cta.play">Get it on Google Play</span>
+        </a>
+        <div class="qr-mini"><div class="qr-box" id="qr1"></div><span data-i18n="cta.scan">Scan with your phone camera</span></div>
+      </div>
+      <p class="facts" data-i18n="hero.facts">Free · No account · Works offline</p>
+    </div>
+
+    <div class="stage">
+      <div class="phone" id="phone">
+        <div class="screen">
+          <div class="sb"><span>10:08</span><span>5G ▮▮▮ 84%</span></div>
+          <div class="box">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="url(#gA)" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.6 20 20.2"/></svg>
+            <input id="q" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-i18n-ph="ph" placeholder="Type, search, share…" aria-label="Try the Swipe View search">
+            <button class="iconbtn" id="clear" type="button" aria-label="Clear" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+            <button class="iconbtn" id="mic" type="button" aria-label="Voice"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button>
+          </div>
+          <div class="res" id="res"></div>
+          <div class="smart" id="smart"></div>
+          <div class="bar" id="bar"></div>
+          <div class="ptoast" id="ptoast" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+      <p class="try-label" data-i18n="try.label">Try it here. Type in the box or tap an example.</p>
+      <div class="examples" id="examples"></div>
+      <p class="demo-note" data-i18n="demo">Demo. The contacts and apps in it are examples.</p>
+    </div>
+  </div>
+
+  <section id="shortcuts">
+    <div class="wrap">
+      <div class="sh">
+        <p class="eyebrow" data-i18n="sc.eyebrow">Dot shortcuts</p>
+        <h2 data-i18n="sc.title">Add a dot. Pick where it goes.</h2>
+        <p data-i18n="sc.body">Type .yt before or after your words and the search goes straight to YouTube. A dot on its own lists every shortcut. You can change the words, and even the dot.</p>
+      </div>
+      <div class="keys" id="keys"></div>
+    </div>
+  </section>
+
+  <section id="search">
+    <div class="wrap">
+      <div class="sh">
+        <p class="eyebrow" data-i18n="pw.eyebrow">Search</p>
+        <h2 data-i18n="pw.title">One box. A lot of jobs.</h2>
+        <p data-i18n="pw.body">All of these work from the same box. Tap Try it to see one on the phone above.</p>
+      </div>
+      <div class="grid" id="powers"></div>
+    </div>
+  </section>
+
+  <section id="anywhere">
+    <div class="wrap">
+      <div class="sh">
+        <p class="eyebrow" data-i18n="any.eyebrow">Always one tap away</p>
+        <h2 data-i18n="any.title">Search from anywhere on your phone</h2>
+      </div>
+      <div class="ways">
+        <div class="way">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="18" y="4" width="28" height="56" rx="6"/><g fill="currentColor" stroke="none" opacity=".28"><rect x="23" y="13" width="7" height="7" rx="2"/><rect x="34" y="13" width="7" height="7" rx="2"/><rect x="23" y="24" width="7" height="7" rx="2"/><rect x="34" y="24" width="7" height="7" rx="2"/></g><rect x="22" y="42" width="20" height="7" rx="3.5" fill="url(#gA)" stroke="none"/></svg>
+          <h3 data-i18n="w1t">Home screen search bar</h3><p data-i18n="w1b">Dark, white, or matched to your wallpaper.</p>
+        </div>
+        <div class="way">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="8" y="14" width="22" height="16" rx="8"/><rect x="34" y="14" width="22" height="16" rx="8" fill="url(#gA)" stroke="none"/><rect x="8" y="34" width="22" height="16" rx="8"/><rect x="34" y="34" width="22" height="16" rx="8"/></svg>
+          <h3 data-i18n="w2t">Quick Settings tile</h3><p data-i18n="w2b">Pull down from the top of the screen and tap Swipe Search.</p>
+        </div>
+        <div class="way">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="10" y="4" width="28" height="56" rx="6"/><rect x="34.5" y="20" width="3.5" height="22" rx="1.75" fill="url(#gA)" stroke="none"/><path d="M58 31H45m4-4-4 4 4 4"/></svg>
+          <h3 data-i18n="w3t">Edge strip</h3><p data-i18n="w3b">Swipe in from the side of the screen for search or snippets, even over other apps.</p>
+        </div>
+        <div class="way">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="20" y="6" width="32" height="11" rx="4" fill="url(#gA)" stroke="none"/><path d="M10 28h44M10 38h44M10 48h30"/><rect x="18" y="33" width="26" height="10" rx="2" fill="url(#gA)" stroke="none" opacity=".35"/></svg>
+          <h3 data-i18n="w4t">From any app</h3><p data-i18n="w4b">Select text anywhere and tap Swipe Search.</p>
+        </div>
+        <div class="way">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="25" y="8" width="14" height="28" rx="7" fill="url(#gA)" stroke="none"/><path d="M16 30a16 16 0 0 0 32 0M32 46v10M24 56h16"/></svg>
+          <h3 data-i18n="w5t">Just say it</h3><p data-i18n="w5b">Tap the mic and speak instead of typing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="player">
+    <div class="wrap">
+      <div class="sh">
+        <p class="eyebrow" data-i18n="pl.eyebrow">The player</p>
+        <h2 data-i18n="pl.title">Your phone's videos, played like Reels.</h2>
+        <p data-i18n="pl.body">Every video already on your phone, in one full-screen feed. Swipe up for the next one. No internet, no account.</p>
+      </div>
+      <div class="split">
+        <div class="points">
+          <div class="point"><h3 data-i18n="pl.p1t">Easy for parents and grandparents</h3><p data-i18n="pl.p1b">Open the app and videos start playing. Nothing to learn. Swipe up for the next one, down to go back.</p></div>
+          <div class="point"><h3 data-i18n="pl.p2t">Phone full? Clean up while you watch.</h3><p data-i18n="pl.p2b">Every video shows its size, so the big ones stand out. Delete what you don't need and see exactly how much space comes back. Try it on the list.</p></div>
+          <div class="point"><h3 data-i18n="pl.p3t">Rename and move in one tap</h3><p data-i18n="pl.p3b">Tap a video's title to rename it. Hold the title to move the video to another folder.</p></div>
+        </div>
+        <div class="panel">
+          <div id="vlist"></div>
+          <div class="panel-foot" id="vfoot"></div>
+        </div>
+      </div>
+      <div class="full">
+        <h3 data-i18n="pl.full">Also a full video player</h3>
+        <ul class="gest" id="gest"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="more">
+    <div class="wrap">
+      <div class="sh">
+        <p class="eyebrow" data-i18n="mo.eyebrow">Snippets and links</p>
+        <h2 data-i18n="mo.title">Keep the text and links you come back to.</h2>
+      </div>
+      <div class="two">
+        <div class="pw">
+          <h3 data-i18n="sn.t">Snippets</h3>
+          <p data-i18n="sn.b">Save text you type again and again: replies, addresses, AI prompts. Copy any of them in one tap, even over other apps from the edge strip.</p>
+          <div class="snips" id="snips"></div>
+        </div>
+        <div class="pw">
+          <h3 data-i18n="ln.t">Saved links</h3>
+          <p data-i18n="ln.b">Share a link from any app and it's saved in one tap, with its title and thumbnail. Trackers are removed. Unread links come back between your videos, so you actually read them.</p>
+          <div class="urlbox">
+            <span class="ulabel" data-i18n="ln.before">Shared</span>
+            <div class="url">https://youtu.be/aB3xY9kLm2Q<span class="junk">?si=Xk3pQz8VtR1bN4mC&amp;utm_source=whatsapp</span></div>
+            <span class="ulabel" data-i18n="ln.after">Saved</span>
+            <div class="url">https://youtu.be/aB3xY9kLm2Q</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="wrap">
+      <div class="sh">
+        <p class="eyebrow" data-i18n="pv.eyebrow">Privacy</p>
+        <h2 data-i18n="pv.title">Your phone. Your data.</h2>
+      </div>
+      <div class="priv">
+        <div class="pv"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#3DDC97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span data-i18n="pv1">No account, no sign-up</span></div>
+        <div class="pv"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#3DDC97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span data-i18n="pv2">Your videos never leave your phone</span></div>
+        <div class="pv"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#3DDC97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span data-i18n="pv3">Contact search is optional and stays on your phone</span></div>
+        <div class="pv"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#3DDC97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span data-i18n="pv4">The internet is only used for link titles and thumbnails, and you can turn that off</span></div>
+      </div>
+      <a class="policy policy-link" href="#" target="_blank" rel="noopener"><span data-i18n="pv.link">Read the privacy policy</span> →</a>
+    </div>
+  </section>
+
+  <section id="get">
+    <div class="wrap">
+      <div class="get">
+        <div>
+          <h2 data-i18n="get.title">Get Swipe View</h2>
+          <p data-i18n="get.body">Point your phone camera at the code, or tap the button on your Android phone.</p>
+          <a class="btn play-link" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="#fff"/></svg>
+            <span data-i18n="cta.play">Get it on Google Play</span>
+          </a>
+        </div>
+        <div class="qr-big" id="qr2"></div>
+      </div>
+      <div class="faq">
+        <h3 data-i18n="faq.title">Questions</h3>
+        <details><summary data-i18n="q1">Is Swipe View free?</summary><p data-i18n="a1">Yes. It's free to download from Google Play.</p></details>
+        <details><summary data-i18n="q2">Does it need the internet?</summary><p data-i18n="a2">No. Your videos, contacts, apps, sums and alarms all work offline. Web searches open in your browser or the app you pick.</p></details>
+        <details><summary data-i18n="q3">Why would it ask for my contacts?</summary><p data-i18n="a3">Only if you turn on contact search. Your contacts are searched on your phone and never uploaded.</p></details>
+        <details><summary data-i18n="q5">Can I move my data to a new phone?</summary><p data-i18n="a5">Yes. Back up your favourites, saved links and settings to a folder you choose, then restore them on the new phone.</p></details>
+        <details><summary data-i18n="q4">Does it work on iPhone?</summary><p data-i18n="a4">Not yet. Swipe View is for Android.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span data-i18n="foot.made">Made in India by Ritik</span>
+    <span><span data-i18n="foot.contact">Contact</span>: <span class="mail">rdxatoz@gmail.com</span></span>
+    <a class="policy-link" href="#" target="_blank" rel="noopener" data-i18n="foot.policy">Privacy policy</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(function(){
+"use strict";
+var PLAY = "https://play.google.com/store/apps/details?id=com.swipeview.app";
+var POLICY = "https://sites.google.com/view/swipe-view-vertical-video-play";
+
+var lang = "en";
+try { if (localStorage.getItem("sv-lang") === "hi") lang = "hi"; } catch (e) {}
+
+var STR = {
+en: {
+  "nav.search":"Search","nav.player":"Player","nav.privacy":"Privacy","nav.get":"Get the app",
+  "hero.eyebrow":"Swipe View · for Android","hero.t1":"Type anything.","hero.t2":"Your phone does the right thing.",
+  "hero.lead":"One search box that opens YouTube, Maps, WhatsApp and Amazon, does your sums, sets alarms and saves contacts. And the videos already on your phone play like Reels.",
+  "cta.play":"Get it on Google Play","cta.scan":"Scan with your phone camera","hero.facts":"Free · No account · Works offline",
+  "try.label":"Try it here. Type in the box or tap an example.","demo":"Demo. The contacts and apps in it are examples.","ph":"Type, search, share…",
+  "sc.eyebrow":"Dot shortcuts","sc.title":"Add a dot. Pick where it goes.",
+  "sc.body":"Type .yt before or after your words and the search goes straight to YouTube. A dot on its own lists every shortcut. You can change the words, and even the dot.",
+  "pw.eyebrow":"Search","pw.title":"One box. A lot of jobs.","pw.body":"All of these work from the same box. Tap Try it to see one on the phone above.","try":"Try it",
+  "any.eyebrow":"Always one tap away","any.title":"Search from anywhere on your phone",
+  "w1t":"Home screen search bar","w1b":"Dark, white, or matched to your wallpaper.",
+  "w2t":"Quick Settings tile","w2b":"Pull down from the top of the screen and tap Swipe Search.",
+  "w3t":"Edge strip","w3b":"Swipe in from the side of the screen for search or snippets, even over other apps.",
+  "w4t":"From any app","w4b":"Select text anywhere and tap Swipe Search.",
+  "w5t":"Just say it","w5b":"Tap the mic and speak instead of typing.",
+  "pl.eyebrow":"The player","pl.title":"Your phone's videos, played like Reels.",
+  "pl.body":"Every video already on your phone, in one full-screen feed. Swipe up for the next one. No internet, no account.",
+  "pl.p1t":"Easy for parents and grandparents","pl.p1b":"Open the app and videos start playing. Nothing to learn. Swipe up for the next one, down to go back.",
+  "pl.p2t":"Phone full? Clean up while you watch.","pl.p2b":"Every video shows its size, so the big ones stand out. Delete what you don't need and see exactly how much space comes back. Try it on the list.",
+  "pl.p3t":"Rename and move in one tap","pl.p3b":"Tap a video's title to rename it. Hold the title to move the video to another folder.",
+  "pl.full":"Also a full video player",
+  "v.pick":"Tick the videos you don't need","v.del":"Delete {n} · frees {s}","v.freed":"{s} freed","v.reset":"Reset demo",
+  "mo.eyebrow":"Snippets and links","mo.title":"Keep the text and links you come back to.",
+  "sn.t":"Snippets","sn.b":"Save text you type again and again: replies, addresses, AI prompts. Copy any of them in one tap, even over other apps from the edge strip.",
+  "copy":"Copy","copied":"Copied",
+  "ln.t":"Saved links","ln.b":"Share a link from any app and it's saved in one tap, with its title and thumbnail. Trackers are removed. Unread links come back between your videos, so you actually read them.",
+  "ln.before":"Shared","ln.after":"Saved",
+  "pv.eyebrow":"Privacy","pv.title":"Your phone. Your data.",
+  "pv1":"No account, no sign-up","pv2":"Your videos never leave your phone","pv3":"Contact search is optional and stays on your phone",
+  "pv4":"The internet is only used for link titles and thumbnails, and you can turn that off","pv.link":"Read the privacy policy",
+  "get.title":"Get Swipe View","get.body":"Point your phone camera at the code, or tap the button on your Android phone.",
+  "faq.title":"Questions",
+  "q1":"Is Swipe View free?","a1":"Yes. It's free to download from Google Play.",
+  "q2":"Does it need the internet?","a2":"No. Your videos, contacts, apps, sums and alarms all work offline. Web searches open in your browser or the app you pick.",
+  "q3":"Why would it ask for my contacts?","a3":"Only if you turn on contact search. Your contacts are searched on your phone and never uploaded.",
+  "q4":"Does it work on iPhone?","a4":"Not yet. Swipe View is for Android.",
+  "q5":"Can I move my data to a new phone?","a5":"Yes. Back up your favourites, saved links and settings to a folder you choose, then restore them on the new phone.",
+  "foot.made":"Made in India by Ritik","foot.contact":"Contact","foot.policy":"Privacy policy",
+  "share":"Share","apps":"Apps","contacts":"Contacts","shortcuts":"Shortcuts","tasks":"Tasks",
+  "call":"Call","saveName":"Save {n}","saveContact":"Save contact","timer":"{n} min timer",
+  "dir":"Directions","near":"Search nearby","task":"Add task","open":"Open","saveLink":"Save to Links","email":"Send email","waMsg":"Chat with message",
+  "answerHint":"Tap the answer to keep going","focusHint":"Tap {a} to search “{q}”","focusOpen":"Tap {a} to open it",
+  "noShortcut":"There's no shortcut {k}. The rest of your text is ready to search.",
+  "listHint":"Put one before or after your words",
+  "empty":"Start typing. Try a sum, a number, two places, or a name and a number.",
+  "t.alarm":"In the app, the alarm is set right away","t.timer":"In the app, the timer starts right away",
+  "t.call":"In the app, this calls {n}","t.wa":"In the app, this opens the WhatsApp chat",
+  "t.waMsg":"In the app, WhatsApp opens with “{m}” typed in, not sent","t.tc":"In the app, this looks the number up in Truecaller",
+  "t.save":"In the app, the new contact opens already filled in","t.task":"In the app, this goes to your tasks app",
+  "t.share":"In the app, you pick any app to share to","t.app":"In the app, this opens {a}","t.send":"In the app, your text goes to {a}",
+  "t.waShare":"In the app, WhatsApp opens its chat list with your text","t.saveLink":"In the app, the link is saved without trackers",
+  "t.email":"In the app, your email app opens","t.mic":"In the app, tap the mic and speak"
+},
+hi: {
+  "nav.search":"सर्च","nav.player":"प्लेयर","nav.privacy":"प्राइवेसी","nav.get":"ऐप लें",
+  "hero.eyebrow":"Swipe View · Android के लिए","hero.t1":"कुछ भी टाइप करो।","hero.t2":"सही काम फ़ोन खुद करेगा।",
+  "hero.lead":"एक सर्च बॉक्स जो YouTube, Maps, WhatsApp और Amazon खोलता है, हिसाब लगाता है, अलार्म लगाता है और कॉन्टैक्ट सेव करता है। और फ़ोन में पड़े आपके वीडियो Reels की तरह चलते हैं।",
+  "cta.play":"Google Play से डाउनलोड करें","cta.scan":"फ़ोन के कैमरे से स्कैन करो","hero.facts":"फ़्री · कोई अकाउंट नहीं · ऑफ़लाइन चलता है",
+  "try.label":"यहीं ट्राई करो। बॉक्स में टाइप करो या कोई उदाहरण टैप करो।","demo":"डेमो। इसमें दिखे कॉन्टैक्ट और ऐप्स सिर्फ़ उदाहरण हैं।","ph":"टाइप करो, सर्च करो, शेयर करो…",
+  "sc.eyebrow":"डॉट शॉर्टकट","sc.title":"डॉट लगाओ, जगह चुनो।",
+  "sc.body":"शब्दों के पहले या बाद में .yt लिखो, सर्च सीधे YouTube पर जाएगी। सिर्फ़ डॉट लिखो तो सारे शॉर्टकट दिख जाते हैं। शॉर्टकट के शब्द, और डॉट भी, आप बदल सकते हो।",
+  "pw.eyebrow":"सर्च","pw.title":"एक बॉक्स, ढेर सारे काम।","pw.body":"ये सब एक ही बॉक्स से होता है। ऊपर वाले फ़ोन में देखने के लिए “ट्राई करो” टैप करो।","try":"ट्राई करो",
+  "any.eyebrow":"हमेशा एक टैप दूर","any.title":"फ़ोन में कहीं से भी सर्च करो",
+  "w1t":"होम स्क्रीन सर्च बार","w1b":"डार्क, व्हाइट या आपके वॉलपेपर जैसा।",
+  "w2t":"क्विक सेटिंग्स टाइल","w2b":"स्क्रीन के ऊपर से नीचे खींचो और Swipe Search टैप करो।",
+  "w3t":"एज स्ट्रिप","w3b":"स्क्रीन के किनारे से स्वाइप करो, सर्च या स्निपेट्स खुल जाते हैं, दूसरे ऐप्स के ऊपर भी।",
+  "w4t":"किसी भी ऐप से","w4b":"कहीं भी टेक्स्ट सेलेक्ट करो और Swipe Search टैप करो।",
+  "w5t":"बस बोल दो","w5b":"माइक टैप करो और टाइप करने की जगह बोलो।",
+  "pl.eyebrow":"वीडियो प्लेयर","pl.title":"फ़ोन के अपने वीडियो, Reels की तरह।",
+  "pl.body":"फ़ोन में पड़े सारे वीडियो, एक फ़ुल-स्क्रीन फ़ीड में। अगले वीडियो के लिए ऊपर स्वाइप करो। न इंटरनेट चाहिए, न अकाउंट।",
+  "pl.p1t":"मम्मी-पापा और दादा-दादी के लिए आसान","pl.p1b":"ऐप खोलते ही वीडियो चलने लगते हैं। कुछ सीखना नहीं पड़ता। अगले के लिए ऊपर स्वाइप, पिछले के लिए नीचे।",
+  "pl.p2t":"फ़ोन फ़ुल? देखते-देखते सफ़ाई करो।","pl.p2b":"हर वीडियो का साइज़ दिखता है, तो बड़े वीडियो तुरंत दिख जाते हैं। जो काम के नहीं उन्हें डिलीट करो और देखो कितनी जगह खाली हुई। लिस्ट पर ट्राई करो।",
+  "pl.p3t":"एक टैप में नाम बदलो, फ़ोल्डर बदलो","pl.p3b":"नाम बदलने के लिए वीडियो के टाइटल पर टैप करो। दूसरे फ़ोल्डर में ले जाने के लिए टाइटल दबाकर रखो।",
+  "pl.full":"पूरा वीडियो प्लेयर भी",
+  "v.pick":"जो वीडियो काम के नहीं, उन्हें टिक करो","v.del":"{n} डिलीट करें · {s} खाली होंगे","v.freed":"{s} खाली हो गए","v.reset":"डेमो दोबारा",
+  "mo.eyebrow":"स्निपेट्स और लिंक्स","mo.title":"जो टेक्स्ट और लिंक बार-बार चाहिए, उन्हें संभालकर रखो।",
+  "sn.t":"स्निपेट्स","sn.b":"जो टेक्स्ट बार-बार लिखते हो उसे सेव कर लो: जवाब, पता, AI प्रॉम्प्ट। एक टैप में कॉपी करो, एज स्ट्रिप से दूसरे ऐप्स के ऊपर भी।",
+  "copy":"कॉपी","copied":"कॉपी हो गया",
+  "ln.t":"सेव्ड लिंक्स","ln.b":"किसी भी ऐप से लिंक शेयर करो, एक टैप में सेव हो जाता है, टाइटल और थंबनेल के साथ। ट्रैकर हट जाते हैं। बिना पढ़े लिंक आपके वीडियो के बीच वापस आते हैं, ताकि आप उन्हें सच में पढ़ो।",
+  "ln.before":"शेयर किया","ln.after":"सेव हुआ",
+  "pv.eyebrow":"प्राइवेसी","pv.title":"आपका फ़ोन, आपका डेटा।",
+  "pv1":"न अकाउंट, न साइन-अप","pv2":"आपके वीडियो फ़ोन से बाहर नहीं जाते","pv3":"कॉन्टैक्ट सर्च ऑप्शनल है और फ़ोन में ही रहता है",
+  "pv4":"इंटरनेट सिर्फ़ लिंक के टाइटल और थंबनेल के लिए लगता है, और उसे बंद कर सकते हो","pv.link":"प्राइवेसी पॉलिसी पढ़ें",
+  "get.title":"Swipe View डाउनलोड करो","get.body":"फ़ोन का कैमरा इस कोड पर रखो, या Android फ़ोन पर बटन टैप करो।",
+  "faq.title":"सवाल-जवाब",
+  "q1":"क्या Swipe View फ़्री है?","a1":"हाँ। Google Play से फ़्री में डाउनलोड कर सकते हो।",
+  "q2":"क्या इंटरनेट चाहिए?","a2":"नहीं। वीडियो, कॉन्टैक्ट्स, ऐप्स, हिसाब और अलार्म, सब ऑफ़लाइन चलते हैं। वेब सर्च आपके ब्राउज़र या चुने हुए ऐप में खुलती है।",
+  "q3":"ये कॉन्टैक्ट्स की परमिशन क्यों माँगता है?","a3":"सिर्फ़ तब, जब आप कॉन्टैक्ट सर्च चालू करो। कॉन्टैक्ट्स फ़ोन में ही सर्च होते हैं, कहीं अपलोड नहीं होते।",
+  "q4":"क्या ये iPhone पर चलता है?","a4":"अभी नहीं। Swipe View सिर्फ़ Android के लिए है।",
+  "q5":"क्या नए फ़ोन में डेटा ले जा सकते हैं?","a5":"हाँ। फ़ेवरेट्स, सेव्ड लिंक्स और सेटिंग्स का बैकअप अपने चुने फ़ोल्डर में लो, फिर नए फ़ोन में रिस्टोर कर लो।",
+  "foot.made":"Ritik ने भारत में बनाया","foot.contact":"संपर्क","foot.policy":"प्राइवेसी पॉलिसी",
+  "share":"शेयर","apps":"ऐप्स","contacts":"कॉन्टैक्ट्स","shortcuts":"शॉर्टकट","tasks":"टास्क",
+  "call":"कॉल","saveName":"{n} सेव करें","saveContact":"कॉन्टैक्ट सेव करें","timer":"{n} मिनट टाइमर",
+  "dir":"रास्ता देखें","near":"आस-पास खोजें","task":"टास्क बनाएं","open":"खोलें","saveLink":"Links में सेव करें","email":"ईमेल भेजें","waMsg":"मैसेज के साथ चैट",
+  "answerHint":"आगे हिसाब के लिए जवाब टैप करो","focusHint":"“{q}” सर्च करने के लिए {a} टैप करो","focusOpen":"खोलने के लिए {a} टैप करो",
+  "noShortcut":"{k} नाम का कोई शॉर्टकट नहीं है। बाकी टेक्स्ट सर्च के लिए तैयार है।",
+  "listHint":"शब्दों के पहले या बाद में लगाओ",
+  "empty":"टाइप करना शुरू करो। कोई हिसाब, कोई नंबर, दो जगहें, या नाम और नंबर लिखकर देखो।",
+  "t.alarm":"ऐप में अलार्म तुरंत सेट हो जाता है","t.timer":"ऐप में टाइमर तुरंत शुरू हो जाता है",
+  "t.call":"ऐप में ये {n} पर कॉल करता है","t.wa":"ऐप में ये WhatsApp चैट खोलता है",
+  "t.waMsg":"ऐप में WhatsApp खुलता है, “{m}” पहले से लिखा हुआ, भेजा नहीं जाता","t.tc":"ऐप में ये नंबर Truecaller में देखता है",
+  "t.save":"ऐप में नया कॉन्टैक्ट पहले से भरा हुआ खुलता है","t.task":"ऐप में ये सीधा आपके टास्क ऐप में जाता है",
+  "t.share":"ऐप में आप कोई भी ऐप चुनकर शेयर कर सकते हो","t.app":"ऐप में ये {a} खोलता है","t.send":"ऐप में आपका टेक्स्ट {a} को जाता है",
+  "t.waShare":"ऐप में WhatsApp आपके टेक्स्ट के साथ चैट लिस्ट खोलता है","t.saveLink":"ऐप में लिंक बिना ट्रैकर के सेव हो जाता है",
+  "t.email":"ऐप में आपका ईमेल ऐप खुलता है","t.mic":"ऐप में माइक टैप करके बोलो"
+}};
+
+function t(k, v) {
+  var s = (STR[lang] && STR[lang][k] != null) ? STR[lang][k] : (STR.en[k] != null ? STR.en[k] : k);
+  if (v) for (var x in v) s = s.split("{" + x + "}").join(v[x]);
+  return s;
+}
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function $(id) { return document.getElementById(id); }
+
+/* ---------- icons ---------- */
+var SHARE = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="m8.2 10.8 7.6-4.4M8.2 13.2l7.6 4.4"/></svg>';
+var WA = '<svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z" fill="#fff"/><path d="M9.2 8.1c.2-.4.4-.4.6-.4h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5-.1l.6-.7c.2-.2.4-.2.6-.1l1.5.7c.2.1.4.2.4.4 0 .3 0 1.1-.6 1.6-.5.5-1.4.8-2.3.6-1.9-.5-4.4-2.4-5.3-4.6-.4-1-.2-2 .4-2.5Z" fill="#25D366"/></svg>';
+var CALL = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>';
+
+/* ---------- search targets ---------- */
+var E = {
+  share:{n:function(){return t("share")}, g:SHARE, c:"#3A3470"},
+  google:{n:"Google", g:"G", c:"#4285F4", u:"https://www.google.com/search?q="},
+  youtube:{n:"YouTube", g:"▶", c:"#FF0033", u:"https://www.youtube.com/results?search_query="},
+  maps:{n:"Maps", g:"M", c:"#1E8E3E", u:"https://www.google.com/maps/search/"},
+  amazon:{n:"Amazon", g:"a", c:"#E8870E", u:"https://www.amazon.in/s?k="},
+  flipkart:{n:"Flipkart", g:"F", c:"#2874F0", u:"https://www.flipkart.com/search?q="},
+  chatgpt:{n:"ChatGPT", g:"✺", c:"#10A37F", u:"https://chatgpt.com/?q="},
+  gemini:{n:"Gemini", g:"✦", c:"#4C6EF5"},
+  claude:{n:"Claude", g:"✳", c:"#D97757", u:"https://claude.ai/new?q="},
+  keep:{n:"Keep", g:"K", c:"#E0A800"},
+  notion:{n:"Notion", g:"N", c:"#55534E"},
+  whatsapp:{n:"WhatsApp", g:WA, c:"#25D366"},
+  task:{n:function(){return t("tasks")}, g:"✓", c:"#7A5CFF"}
+};
+function nm(id) { var n = E[id].n; return typeof n === "function" ? n() : n; }
+function ico(id) { return '<span class="ico" style="background:' + E[id].c + '">' + E[id].g + "</span>"; }
+var BAR = ["share", "google", "youtube", "maps", "amazon", "chatgpt"];
+
+var SC = [
+  {k:"g", to:["google"]}, {k:"yt", to:["youtube"]}, {k:"map", to:["maps"]}, {k:"fk", to:["flipkart"]},
+  {k:"shop", to:["amazon","flipkart"]}, {k:"ai", to:["chatgpt","gemini","claude"]},
+  {k:"save", to:["keep","notion"]}, {k:"task", to:["task"]}, {k:"wa", to:["whatsapp"]}
+];
+var CONTACTS = [
+  {name:"Rohan Sharma", num:"98111 22334"},
+  {name:"Priya Verma", num:"91234 56789"},
+  {name:"Mummy", num:"99887 76655"}
+];
+var APPS = [
+  ["Camera","#5F6368"],["Calculator","#F57C00"],["Calendar","#1A73E8"],["Chrome","#34A853"],["Clock","#3949AB"],
+  ["Contacts","#1A73E8"],["Gallery","#E91E63"],["Gmail","#EA4335"],["Instagram","#C13584"],["Maps","#1E8E3E"],
+  ["Messages","#1A73E8"],["Phone","#0F9D58"],["PhonePe","#5F259F"],["Settings","#607D8B"],["Spotify","#1DB954"],
+  ["WhatsApp","#25D366"],["YouTube","#FF0033"],["Zomato","#E23744"]
+];
+var NOT_PLACE = ("i me my you we they he she it is am are was the a an do did does how what why when want need go going talk listen send reply " +
+  "add come back up down time day date one two face ready used due next close welcome lead move switch turn hard easy nice good " +
+  "plan meet have has had like love try trying hope able nothing").split(" ");
+var NOT_NAME = "call tomorrow today number mobile phone no ka ki ke whatsapp contact new save".split(" ");
+
+function findShortcut(s) {
+  var m = s.match(/^\.([a-z]+)(?:\s+([\s\S]*))?$/i);
+  if (m) return {key:m[1].toLowerCase(), q:(m[2] || "").trim(), lead:true};
+  m = s.match(/^([\s\S]*?)\s*\.([a-z]+)$/i);
+  if (m && m[1] && !/[\d.]$/.test(m[1])) return {key:m[2].toLowerCase(), q:m[1].trim(), lead:false};
+  return null;
+}
+function resolveKey(key) {
+  for (var i = 0; i < SC.length; i++) if (SC[i].k === key) return {to:SC[i].to};
+  // A half-typed key (".y" on the way to ".yt") counts, so typing never flashes an error.
+  for (i = 0; i < SC.length; i++) if (SC[i].k.indexOf(key) === 0) return {to:SC[i].to};
+  if (key.length >= 2) {
+    for (var id in E) { if (id !== "share" && id !== "task" && nm(id).toLowerCase().indexOf(key) === 0) return {to:[id]}; }
+    for (i = 0; i < CONTACTS.length; i++) {
+      var words = CONTACTS[i].name.toLowerCase().split(" ");
+      for (var w = 0; w < words.length; w++) if (words[w].indexOf(key) === 0) return {contact:CONTACTS[i]};
+    }
+  }
+  return null;
+}
+// A small parser for + - * / % and brackets. Not eval: pages like this often run
+// under a policy that blocks eval, and a parser can't run anything but sums.
+function calc(src) {
+  var s = src.replace(/\s+/g, ""), i = 0;
+  function factor() {
+    if (s[i] === "-") { i++; return -factor(); }
+    if (s[i] === "+") { i++; return factor(); }
+    if (s[i] === "(") { i++; var v = sum(); if (s[i] !== ")") throw 0; i++; return v; }
+    var m = s.slice(i).match(/^\d*\.?\d+/);
+    if (!m) throw 0;
+    i += m[0].length;
+    return parseFloat(m[0]);
+  }
+  function product() {
+    var v = factor();
+    while (s[i] === "*" || s[i] === "/" || s[i] === "%") {
+      var op = s[i++], r = factor();
+      v = op === "*" ? v * r : op === "/" ? v / r : v % r;
+    }
+    return v;
+  }
+  function sum() {
+    var v = product();
+    while (s[i] === "+" || s[i] === "-") { var op = s[i++], r = product(); v = op === "+" ? v + r : v - r; }
+    return v;
+  }
+  var out = sum();
+  if (i !== s.length) throw 0;
+  return out;
+}
+function fmtNum(v) {
+  v = Math.round(v * 1e8) / 1e8;
+  return v.toLocaleString("en-IN", {maximumFractionDigits:8});
+}
+function titleCase(s) { return s.replace(/\b[a-z]/g, function (c) { return c.toUpperCase(); }); }
+function initials(n) { return n.split(" ").map(function (w) { return w[0]; }).join("").slice(0, 2).toUpperCase(); }
+
+function analyze(raw) {
+  var s = raw.trim();
+  var o = {kind:"normal", q:s, smart:[], bar:BAR, apps:[], contacts:[]};
+  if (!s) { o.kind = "empty"; return o; }
+  if (s === ".") { o.kind = "list"; return o; }
+
+  if (/^(https?:\/\/|www\.)\S+$/i.test(s)) {
+    var href = /^www\./i.test(s) ? "https://" + s : s;
+    o.smart = [{label:t("open"), href:href, primary:true}, {label:t("saveLink"), toast:t("t.saveLink")}];
+    return o;
+  }
+
+  // Before shortcuts: "name@site.com" ends in what looks like a ".com" shortcut.
+  if (/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(s)) { o.smart.push({label:t("email"), toast:t("t.email"), primary:true}); return o; }
+
+  var sc = findShortcut(s);
+  if (sc) {
+    var r = resolveKey(sc.key);
+    if (r && r.contact) { o.kind = "msg"; o.contact = r.contact; o.msg = sc.q; return o; }
+    if (r) {
+      o.kind = "focus"; o.to = r.to; o.q = sc.q;
+      if (!sc.lead && sc.q.indexOf(" ") < 0 && /^(com|in|ai|org|net|io|app|dev|co)$/.test(sc.key)) {
+        o.smart = [{label:t("open"), href:"https://" + s, primary:false}, {label:t("saveLink"), toast:t("t.saveLink")}];
+      }
+      return o;
+    }
+    if (/^\S+$/.test(s) && /^(com|in|org|net|io|app|dev|co|me|info)$/.test(sc.key)) {
+      o.smart = [{label:t("open"), href:"https://" + s, primary:true}, {label:t("saveLink"), toast:t("t.saveLink")}];
+      return o;
+    }
+    o.kind = "wrong"; o.bad = "." + sc.key; o.q = sc.q; return o;
+  }
+
+  var pm = s.match(/(\+?\d[\d\s-]{8,16}\d)/);
+  var digits = pm ? pm[1].replace(/\D/g, "") : "";
+  if (pm && digits.length >= 10 && digits.length <= 13) {
+    var rest = s.replace(pm[1], " ").trim();
+    var words = rest ? rest.split(/\s+/).filter(function (w) { return NOT_NAME.indexOf(w.toLowerCase()) < 0; }) : [];
+    var isName = rest && words.length >= 1 && words.length <= 4 && words.every(function (w) { return /^[a-z]+$/i.test(w); });
+    var num = pm[1].trim();
+    var saved = CONTACTS.filter(function (c) { return c.num.replace(/\D/g, "") === digits.slice(-10); });
+    if (saved.length) o.contacts = saved;
+    if (isName && !saved.length) o.smart.push({label:t("saveName", {n:titleCase(words.join(" ").toLowerCase())}), toast:t("t.save"), primary:true});
+    o.smart.push({label:t("call"), icon:CALL, toast:t("t.call", {n:num})});
+    o.smart.push({label:"WhatsApp", icon:WA, toast:t("t.wa")});
+    o.smart.push({label:"Truecaller", toast:t("t.tc")});
+    if (!words.length && !saved.length) o.smart.push({label:t("saveContact"), toast:t("t.save")});
+    return o;
+  }
+
+  if (/^[\d\s.+\-*/x×÷()%]+$/i.test(s) && /\d\s*[+\-*/x×÷%]\s*[\d(]/i.test(s)) {
+    var expr = s.replace(/[x×]/gi, "*").replace(/÷/g, "/").replace(/(\d+(?:\.\d+)?)%/g, "($1/100)");
+    try {
+      var v = calc(expr);
+      if (isFinite(v)) { o.answer = fmtNum(v); o.answerRaw = String(Math.round(v * 1e8) / 1e8); }
+    } catch (e) {}
+    return o;
+  }
+
+  if (/^\d{1,3}$/.test(s)) {
+    var n = +s;
+    if (n >= 1 && n <= 12) {
+      o.smart.push({label:"☀ " + n + ":00 AM", toast:t("t.alarm")});
+      o.smart.push({label:"🌙 " + n + ":00 PM", toast:t("t.alarm")});
+    }
+    if (n >= 1 && n <= 180) o.smart.push({label:"⏱ " + t("timer", {n:n}), toast:t("t.timer")});
+    return o;
+  }
+
+  if (/^(remind me to|todo|task)\s+\S/i.test(s)) { o.smart.push({label:"✓ " + t("task"), toast:t("t.task"), primary:true}); return o; }
+
+  var dm = s.match(/^(?:from\s+)?([a-z][a-z ]*?)\s+(?:to|se)\s+([a-z][a-z ]*?)(?:\s+tak)?$/i);
+  if (dm) {
+    var a = dm[1].trim().split(/\s+/), b = dm[2].trim().split(/\s+/);
+    var ok = a.length <= 3 && b.length <= 3 && a.concat(b).every(function (w) { return NOT_PLACE.indexOf(w.toLowerCase()) < 0; });
+    if (ok) {
+      var A = titleCase(dm[1].trim()), B = titleCase(dm[2].trim());
+      o.route = [A, B];
+      o.smart.push({label:"🗺 " + t("dir"), href:"https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent(A) + "&destination=" + encodeURIComponent(B), primary:true});
+      return o;
+    }
+  }
+  if (/\b(near me|nearby|aas ?paas)\b/i.test(s)) {
+    o.smart.push({label:"📍 " + t("near"), href:"https://www.google.com/maps/search/" + encodeURIComponent(s.replace(/\b(near me|nearby|aas ?paas)\b/i, "").trim() + " near me"), primary:true});
+    return o;
+  }
+
+  if (/^[a-z]{2,}( [a-z]+)?$/i.test(s)) {
+    var low = s.toLowerCase();
+    o.apps = APPS.filter(function (x) { return x[0].toLowerCase().indexOf(low) === 0; }).slice(0, 6);
+    o.contacts = CONTACTS.filter(function (c) {
+      return c.name.toLowerCase().split(" ").some(function (w) { return w.indexOf(low) === 0; }) || c.name.toLowerCase().indexOf(low) === 0;
+    });
+  }
+  return o;
+}
+
+/* ---------- rendering the phone ---------- */
+var input = $("q"), res = $("res"), smart = $("smart"), bar = $("bar"), clearBtn = $("clear");
+
+function contactRow(c, msg) {
+  var waToast = msg ? t("t.waMsg", {m:msg}) : t("t.wa");
+  return '<div class="card crow"><span class="av">' + initials(c.name) + '</span><div><div class="cname">' + esc(c.name) +
+    '</div><div class="cnum">' + esc(c.num) + '</div></div><div class="cact">' +
+    '<button class="round" style="background:#1F6E43" data-toast="' + esc(waToast) + '" aria-label="WhatsApp">' + WA + "</button>" +
+    (msg ? "" : '<button class="round" style="background:#3A3470" data-toast="' + esc(t("t.call", {n:c.num})) + '" aria-label="' + esc(t("call")) + '">' + CALL + "</button>") +
+    "</div></div>";
+}
+function engineBtn(id, q, cls) {
+  var e = E[id], inner = ico(id) + "<span>" + esc(nm(id)) + "</span>";
+  if (e.u && q) return '<a class="' + cls + '" href="' + esc(e.u + encodeURIComponent(q)) + '" target="_blank" rel="noopener">' + inner + "</a>";
+  var msg = id === "share" ? t("t.share") : id === "task" ? t("t.task") : id === "whatsapp" ? t("t.waShare") : (q ? t("t.send", {a:nm(id)}) : t("t.app", {a:nm(id)}));
+  return '<button type="button" class="' + cls + '" data-toast="' + esc(msg) + '">' + inner + "</button>";
+}
+function smartBtn(b) {
+  var inner = (b.icon || "") + "<span>" + esc(b.label) + "</span>";
+  var cls = "sbtn" + (b.primary ? " primary" : "");
+  if (b.href) return '<a class="' + cls + '" href="' + esc(b.href) + '" target="_blank" rel="noopener">' + inner + "</a>";
+  return '<button type="button" class="' + cls + '" data-toast="' + esc(b.toast) + '">' + inner + "</button>";
+}
+
+function render() {
+  var o = analyze(input.value);
+  clearBtn.hidden = !input.value;
+  var h = "", sm = "", showBar = true;
+  smart.className = "smart";
+
+  if (o.kind === "empty") {
+    h = '<p class="empty">' + esc(t("empty")) + "</p>"; showBar = false;
+  } else if (o.kind === "list") {
+    h = '<div class="sec-h">' + esc(t("shortcuts")) + "</div><div>";
+    SC.forEach(function (x) {
+      h += '<button type="button" class="lrow" data-fill=".' + x.k + ' "><code>.' + x.k + "</code><span>" + esc(x.to.map(nm).join(" · ")) + "</span></button>";
+    });
+    h += '</div><p class="hint" style="margin:0 10px">' + esc(t("listHint")) + "</p>";
+    showBar = false;
+  } else if (o.kind === "focus") {
+    var names = o.to.map(nm).join(" · ");
+    h = '<div class="card hint">' + esc(o.q ? t("focusHint", {a:names, q:o.q}) : t("focusOpen", {a:names})) + "</div>";
+    smart.className = "smart targets";
+    sm = o.to.map(function (id) { return engineBtn(id, o.q, "target"); }).join("") ;
+    if (o.smart.length) sm += '<div style="flex-basis:100%;display:flex;gap:8px;flex-wrap:wrap">' + o.smart.map(smartBtn).join("") + "</div>";
+    showBar = false;
+  } else if (o.kind === "msg") {
+    h = contactRow(o.contact, o.msg);
+    sm = smartBtn({label:t("waMsg"), icon:WA, toast:t("t.waMsg", {m:o.msg}), primary:true});
+    showBar = false;
+  } else {
+    if (o.kind === "wrong") h += '<div class="card note">' + esc(t("noShortcut", {k:o.bad})) + "</div>";
+    if (o.route) h += '<div class="card route"><span>' + esc(o.route[0]) + "</span><i>→</i><span>" + esc(o.route[1]) + "</span></div>";
+    if (o.answer != null) h += '<div class="card"><button type="button" class="answer grad" data-fill="' + esc(o.answerRaw) + '">= ' + esc(o.answer) + '</button><div class="hint">' + esc(t("answerHint")) + "</div></div>";
+    if (o.apps.length) {
+      h += '<div class="sec-h">' + esc(t("apps")) + '</div><div class="apps">' + o.apps.map(function (x) {
+        return '<button type="button" class="app" data-toast="' + esc(t("t.app", {a:x[0]})) + '"><span class="ico" style="background:' + x[1] + '">' + x[0][0] + "</span>" + esc(x[0]) + "</button>";
+      }).join("") + "</div>";
+    }
+    if (o.contacts.length) h += '<div class="sec-h">' + esc(t("contacts")) + "</div>" + o.contacts.map(function (c) { return contactRow(c); }).join("");
+    sm = o.smart.map(smartBtn).join("");
+  }
+
+  res.innerHTML = h;
+  smart.innerHTML = sm;
+  bar.hidden = !showBar;
+  if (showBar) bar.innerHTML = o.bar.map(function (id) { return engineBtn(id, o.q, "eng"); }).join("");
+}
+
+var toastEl = $("ptoast"), toastTimer;
+function toast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add("on");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { toastEl.classList.remove("on"); }, 2800);
+}
+
+$("phone").addEventListener("click", function (ev) {
+  var el = ev.target.closest("[data-toast],[data-fill]");
+  if (!el) return;
+  stopAuto();
+  if (el.hasAttribute("data-fill")) { input.value = el.getAttribute("data-fill"); render(); return; }
+  toast(el.getAttribute("data-toast"));
+});
+$("phone").addEventListener("pointerdown", stopAuto);
+input.addEventListener("focus", stopAuto);
+input.addEventListener("input", function () { stopAuto(); render(); });
+clearBtn.addEventListener("click", function () { stopAuto(); input.value = ""; render(); input.focus(); });
+$("mic").addEventListener("click", function () { stopAuto(); toast(t("t.mic")); });
+
+/* ---------- examples and the self-typing demo ---------- */
+var EX = [".yt lofi songs", "Delhi to Mumbai", "18 x 12", "Rohan 98765 43210", "7", "remind me to call mom tomorrow", "how are you.mummy", "Camera", "."];
+function examples() { return EX.map(function (x) { return lang === "hi" && x === "Delhi to Mumbai" ? "Delhi se Mumbai" : x; }); }
+
+var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+var auto = !reduce, visible = true, timer = null, ai = 0, ci = 0, phase = "hold";
+var LOOP = examples().slice(0, 7);
+function step() {
+  timer = null;
+  if (!auto || !visible) return;
+  var ex = LOOP[ai % LOOP.length];
+  if (phase === "type") {
+    ci++; input.value = ex.slice(0, ci); render();
+    if (ci >= ex.length) { phase = "hold"; timer = setTimeout(step, 2600); return; }
+    timer = setTimeout(step, 50 + Math.random() * 55);
+  } else if (phase === "hold") {
+    phase = "erase"; timer = setTimeout(step, 20);
+  } else {
+    ci = Math.max(0, ci - 3); input.value = ex.slice(0, ci); render();
+    if (ci === 0) { ai++; phase = "type"; timer = setTimeout(step, 380); return; }
+    timer = setTimeout(step, 22);
+  }
+}
+function stopAuto() { auto = false; if (timer) clearTimeout(timer); timer = null; }
+function load(text) {
+  stopAuto();
+  input.value = text; render();
+  $("phone").scrollIntoView({behavior: reduce ? "auto" : "smooth", block: "center"});
+}
+if ("IntersectionObserver" in window) {
+  new IntersectionObserver(function (en) {
+    visible = en[0].isIntersecting;
+    if (visible && auto && !timer) timer = setTimeout(step, 600);
+  }).observe($("phone"));
+}
+
+function renderChips() {
+  $("examples").innerHTML = examples().map(function (x) {
+    return '<button type="button" class="chip" data-ex="' + esc(x) + '">' + esc(x === "." ? (lang === "hi" ? ". (सारे शॉर्टकट)" : ". (all shortcuts)") : x) + "</button>";
+  }).join("");
+}
+$("examples").addEventListener("click", function (ev) {
+  var b = ev.target.closest("[data-ex]"); if (b) { stopAuto(); input.value = b.getAttribute("data-ex"); render(); }
+});
+
+/* ---------- shortcut keys ---------- */
+var KEYS = [
+  {k:"g", fill:".g ", en:"Google", hi:"Google"},
+  {k:"yt", fill:".yt lofi songs", en:"YouTube", hi:"YouTube"},
+  {k:"map", fill:".map petrol pump", en:"Maps", hi:"Maps"},
+  {k:"fk", fill:".fk phone cover", en:"Flipkart", hi:"Flipkart"},
+  {k:"shop", fill:".shop running shoes", en:"Amazon and Flipkart together", hi:"Amazon और Flipkart एक साथ"},
+  {k:"ai", fill:"explain UPI simply.ai", en:"ChatGPT, Gemini, Claude", hi:"ChatGPT, Gemini, Claude"},
+  {k:"wa", fill:"running late, see you soon.wa", en:"Send to a WhatsApp chat", hi:"WhatsApp चैट पर भेजो"},
+  {k:"task", fill:"pay electricity bill.task", en:"Your tasks app", hi:"आपका टास्क ऐप"},
+  {k:"save", fill:"wifi password is on the router.save", en:"Your notes apps", hi:"आपके नोट्स ऐप्स"},
+  {k:"mummy", fill:"how are you.mummy", en:"Any contact: your message on WhatsApp", hi:"कोई भी कॉन्टैक्ट: WhatsApp पर आपका मैसेज"}
+];
+function renderKeys() {
+  $("keys").innerHTML = KEYS.map(function (x) {
+    return '<button type="button" class="key" data-load="' + esc(x.fill) + '"><code><b>.</b>' + x.k + "</code><span>" + esc(x[lang]) + "</span></button>";
+  }).join("");
+}
+
+/* ---------- search powers ---------- */
+var POWERS = [
+  {ex:"Delhi to Mumbai", exHi:"Delhi se Mumbai", en:["Get directions","Type two places. Maps opens with the route. Hinglish works too: Delhi se Mumbai."], hi:["रास्ता देखो","दो जगहों के नाम लिखो। Maps रास्ते के साथ खुल जाता है। Hinglish भी चलती है: Delhi se Mumbai।"]},
+  {ex:"Rohan 98765 43210", en:["Save a number in seconds","Type a name and a number. The new contact opens already filled in."], hi:["सेकंडों में नंबर सेव करो","नाम और नंबर लिखो। नया कॉन्टैक्ट पहले से भरा हुआ खुलता है।"]},
+  {ex:"98765 43210", en:["WhatsApp without saving","Type any number to chat on WhatsApp, call it, or look it up in Truecaller."], hi:["बिना सेव किए WhatsApp","कोई भी नंबर लिखो और WhatsApp पर चैट करो, कॉल करो या Truecaller में देखो।"]},
+  {ex:"priya", en:["Find any contact","Tap to call or WhatsApp. Hold Call to copy the number, hold WhatsApp to send a normal SMS."], hi:["कोई भी कॉन्टैक्ट ढूंढो","कॉल या WhatsApp के लिए टैप करो। नंबर कॉपी करने के लिए Call दबाकर रखो, SMS के लिए WhatsApp दबाकर रखो।"]},
+  {ex:"how are you.mummy", en:["Message without opening chats","Type your message, a dot and their name. WhatsApp opens with it typed in."], hi:["चैट खोले बिना मैसेज","मैसेज लिखो, फिर डॉट और नाम। WhatsApp मैसेज लिखा हुआ खुलता है।"]},
+  {ex:"18 x 12", en:["Quick maths","The answer shows as you type. Tap it to keep going."], hi:["झटपट हिसाब","टाइप करते ही जवाब दिखता है। आगे जोड़ने के लिए उसे टैप करो।"]},
+  {ex:"7", en:["An alarm from one number","Type 7 and pick 7 AM, 7 PM or a 7 minute timer. It's set right away."], hi:["एक नंबर से अलार्म","7 लिखो और 7 AM, 7 PM या 7 मिनट का टाइमर चुनो। तुरंत सेट हो जाता है।"]},
+  {ex:"remind me to call mom tomorrow", en:["Make a to-do","Start with “remind me to”. It goes straight to your tasks app."], hi:["टू-डू बनाओ","“remind me to” से शुरू करो। सीधा आपके टास्क ऐप में जाता है।"]},
+  {ex:"Camera", en:["Open any app","Type its name and tap the icon. Hold the icon for App info."], hi:["कोई भी ऐप खोलो","नाम लिखो और आइकन टैप करो। App info के लिए आइकन दबाकर रखो।"]},
+  {ex:"plan a 3 day Goa trip.ai", en:["Ask AI","Send what you typed to ChatGPT, Gemini or Claude."], hi:["AI से पूछो","जो लिखा है वो ChatGPT, Gemini या Claude को भेजो।"]},
+  {ex:".shop running shoes", en:["Compare prices",".shop sends the same words to Amazon and Flipkart."], hi:["दाम मिलाओ",".shop वही शब्द Amazon और Flipkart दोनों पर भेजता है।"]},
+  {ex:"What should I cook tonight?", en:["Write first, decide later","Type anything, then share it to any app or save it to your notes."], hi:["पहले लिखो, बाद में सोचो","कुछ भी लिखो, फिर किसी भी ऐप में शेयर करो या नोट्स में सेव करो।"]}
+];
+function renderPowers() {
+  $("powers").innerHTML = POWERS.map(function (p) {
+    var ex = lang === "hi" && p.exHi ? p.exHi : p.ex, tx = p[lang];
+    return '<div class="pw"><h3>' + esc(tx[0]) + "</h3><p>" + esc(tx[1]) + '</p><div class="ex"><span class="exq">' + esc(ex) +
+      '</span><button type="button" class="trylink" data-load="' + esc(ex) + '">' + esc(t("try")) + " →</button></div></div>";
+  }).join("");
+}
+document.addEventListener("click", function (ev) {
+  var b = ev.target.closest("[data-load]"); if (b) load(b.getAttribute("data-load"));
+});
+
+/* ---------- player gestures ---------- */
+var GEST = [
+  ["Turn the phone for sideways videos","हॉरिज़ॉन्टल वीडियो के लिए फ़ोन घुमाओ"],
+  ["Hold anywhere for 2x speed","2x स्पीड के लिए स्क्रीन दबाकर रखो"],
+  ["Double-tap to skip 10 seconds","10 सेकंड आगे-पीछे के लिए डबल-टैप करो"],
+  ["Hold and slide for brightness and volume","ब्राइटनेस और वॉल्यूम के लिए दबाकर स्लाइड करो"],
+  ["Pinch to zoom","ज़ूम के लिए दो उंगलियों से फैलाओ"],
+  ["Keep listening with the screen off","स्क्रीन बंद करके भी सुनते रहो"],
+  ["Starts where you left off","जहाँ छोड़ा था, वहीं से शुरू"],
+  ["On this day: your videos from this date in past years","On this day: पिछले सालों में आज ही की तारीख़ के वीडियो"],
+  ["A soft glow that matches each video","हर वीडियो के रंग से मिलती हल्की रोशनी"],
+  ["Folders, Recent and Favourites one swipe away","फ़ोल्डर्स, Recent और फ़ेवरेट्स बस एक स्वाइप दूर"]
+];
+function renderGest() {
+  $("gest").innerHTML = GEST.map(function (g) { return "<li>" + esc(g[lang === "hi" ? 1 : 0]) + "</li>"; }).join("");
+}
+
+/* ---------- storage clean-up demo ---------- */
+var VIDS = [
+  {n:"Wedding_dance_full.mp4", f:"Camera", mb:1434, bg:"linear-gradient(135deg,#7B3FE4,#E0569B)"},
+  {n:"Screen recording 2024-03-02.mp4", f:"Screen recordings", mb:640, bg:"linear-gradient(135deg,#2B5876,#4E4376)"},
+  {n:"WhatsApp Video 2023-08-14.mp4", f:"WhatsApp Video", mb:182, bg:"linear-gradient(135deg,#11998E,#38EF7D)"},
+  {n:"VID_20221105_birthday.mp4", f:"Camera", mb:96, bg:"linear-gradient(135deg,#F7971E,#FFD200)"},
+  {n:"Good morning status.mp4", f:"WhatsApp Video", mb:12, bg:"linear-gradient(135deg,#3FA7FF,#8F6EFF)"}
+];
+var picked = {}, gone = {}, freedMb = 0;
+function fmtSize(mb) { return mb >= 1024 ? (mb / 1024).toFixed(1) + " GB" : mb + " MB"; }
+var PLAY_ICON = '<svg viewBox="0 0 24 24" width="18" height="18"><path d="M8 5.5v13l10-6.5z" fill="rgba(255,255,255,.9)"/></svg>';
+function renderVids() {
+  $("vlist").innerHTML = VIDS.map(function (v, i) {
+    if (gone[i]) return "";
+    return '<label class="vrow"><input type="checkbox" data-v="' + i + '"' + (picked[i] ? " checked" : "") + '><span class="thumb" style="background:' + v.bg + '">' + PLAY_ICON +
+      '</span><span class="vtext"><span class="vname" style="display:block">' + esc(v.n) + '</span><span class="vmeta">' + esc(v.f) +
+      '</span></span><span class="size' + (v.mb >= 500 ? " big" : "") + '">' + fmtSize(v.mb) + "</span></label>";
+  }).join("");
+  var n = 0, mb = 0;
+  VIDS.forEach(function (v, i) { if (picked[i] && !gone[i]) { n++; mb += v.mb; } });
+  var foot = "";
+  if (freedMb && !n) foot = '<span class="freed">✓ ' + esc(t("v.freed", {s:fmtSize(freedMb)})) + '</span><button type="button" class="textbtn" id="vreset">' + esc(t("v.reset")) + "</button>";
+  else if (!n) foot = '<span class="hint">' + esc(t("v.pick")) + "</span>";
+  else foot = '<span></span><button type="button" class="btn small" id="vdel">' + esc(t("v.del", {n:n, s:fmtSize(mb)})) + "</button>";
+  $("vfoot").innerHTML = foot;
+}
+$("vlist").addEventListener("change", function (ev) {
+  var i = ev.target.getAttribute("data-v"); if (i == null) return;
+  picked[i] = ev.target.checked; renderVids();
+});
+$("vfoot").addEventListener("click", function (ev) {
+  if (ev.target.id === "vdel") {
+    VIDS.forEach(function (v, i) { if (picked[i] && !gone[i]) { gone[i] = true; freedMb += v.mb; } });
+    picked = {}; renderVids();
+  } else if (ev.target.id === "vreset") { picked = {}; gone = {}; freedMb = 0; renderVids(); }
+});
+
+/* ---------- snippets demo ---------- */
+var SNIPS = {
+  en:["On my way, reaching in 10 minutes.","Please send the bill on WhatsApp, I'll pay by UPI.","Explain this in simple words with one example:"],
+  hi:["रास्ते में हूँ, 10 मिनट में पहुँच रहा हूँ।","बिल WhatsApp पर भेज दो, UPI से पेमेंट कर दूँगा।","इसे आसान शब्दों में एक उदाहरण के साथ समझाओ:"]
+};
+function renderSnips() {
+  $("snips").innerHTML = SNIPS[lang].map(function (s, i) {
+    return '<div class="snip"><span id="sn' + i + '">' + esc(s) + '</span><button type="button" class="sbtn" data-snip="' + i + '">' + esc(t("copy")) + "</button></div>";
+  }).join("");
+}
+$("snips").addEventListener("click", function (ev) {
+  var b = ev.target.closest("[data-snip]"); if (!b) return;
+  var i = b.getAttribute("data-snip"), text = SNIPS[lang][i];
+  function done() { b.textContent = t("copied"); setTimeout(function () { b.textContent = t("copy"); }, 1500); }
+  function selectIt() { var r = document.createRange(); r.selectNodeContents($("sn" + i)); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  try { navigator.clipboard.writeText(text).then(done, selectIt); } catch (e) { selectIt(); }
+});
+
+/* ---------- language ---------- */
+var langBtn = $("lang");
+function applyLang() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = t(el.getAttribute("data-i18n")); });
+  document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { el.placeholder = t(el.getAttribute("data-i18n-ph")); });
+  langBtn.textContent = lang === "en" ? "हिंदी" : "English";
+  langBtn.setAttribute("aria-label", lang === "en" ? "हिंदी में पढ़ें" : "Read in English");
+  renderChips(); renderKeys(); renderPowers(); renderGest(); renderVids(); renderSnips(); render();
+}
+langBtn.addEventListener("click", function () {
+  lang = lang === "en" ? "hi" : "en";
+  try { localStorage.setItem("sv-lang", lang); } catch (e) {}
+  if (input.value === "Delhi to Mumbai" && lang === "hi") input.value = "Delhi se Mumbai";
+  else if (input.value === "Delhi se Mumbai" && lang === "en") input.value = "Delhi to Mumbai";
+  LOOP = examples().slice(0, 7);
+  applyLang();
+});
+
+/* ---------- links and QR ---------- */
+document.querySelectorAll(".play-link").forEach(function (a) { a.href = PLAY; });
+document.querySelectorAll(".policy-link").forEach(function (a) { a.href = POLICY; });
+function makeQR(id, size) {
+  var el = $(id);
+  if (window.QRCode) {
+    try { new QRCode(el, {text:PLAY, width:size, height:size, colorDark:"#0A0913", colorLight:"#ffffff", correctLevel:QRCode.CorrectLevel.M}); return; } catch (e) {}
+  }
+  el.style.padding = "12px"; el.style.lineHeight = "1.4"; el.textContent = "play.google.com · Swipe View";
+}
+makeQR("qr1", 84);
+makeQR("qr2", 200);
+
+input.value = LOOP[0]; ci = LOOP[0].length; phase = "hold";
+applyLang();
+if (auto) timer = setTimeout(step, 2200);
+})();
+</script>
+</body>
+</html>
