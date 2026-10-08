@@ -134,6 +134,11 @@ h1 span{display:block}
 .chip:hover{color:var(--text);border-color:var(--violet)}
 .chip.on{color:var(--text);border-color:var(--violet);background:rgba(143,110,255,.16)}
 .demo-note{font-size:12.5px;color:var(--faint);margin:0}
+/* What the example in the phone does. Its height is reserved so the page doesn't jump as lines change. */
+.caption{min-height:4.4em;max-width:22em;margin:2px 0 0;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;transition:opacity .25s}
+.caption.off{opacity:0}
+.cap-n{font:600 12px var(--f-mono);color:var(--violet);font-variant-numeric:tabular-nums}
+.cap-t{font:600 17px var(--f-body);line-height:1.4;color:var(--text);text-wrap:balance}
 
 /* Sections */
 section{padding-block:88px;border-top:1px solid var(--line);scroll-margin-top:62px}
@@ -305,6 +310,7 @@ footer a{color:var(--mute)}
           <div class="ptoast" id="ptoast" role="status" aria-live="polite"></div>
         </div>
       </div>
+      <p class="caption off" id="cap"><span class="cap-n" id="capn"></span><span class="cap-t" id="capt"></span></p>
       <p class="demo-note" data-i18n="demo">Demo. The contacts and apps in it are examples.</p>
     </div>
   </div>
@@ -861,6 +867,7 @@ function render() {
   bar.hidden = !showBar;
   if (showBar) bar.innerHTML = o.bar.map(function (id) { return engineBtn(id, o.q, "eng"); }).join("");
   markChip();
+  updateCaption();
 }
 
 var toastEl = $("ptoast"), toastTimer;
@@ -889,16 +896,45 @@ var EX = [".yt lofi songs", "Delhi to Mumbai", "18 x 12", "Rohan 98765 43210", "
   "priya", "Camera", "plan a 3 day Goa trip.ai", "."];
 function examples() { return EX.map(function (x) { return lang === "hi" && x === "Delhi to Mumbai" ? "Delhi se Mumbai" : x; }); }
 
+// The line under the phone, one per EX entry and in the same order. It says what the
+// person gets, not how the app does it, and never promises more than the app does:
+// the app opens WhatsApp or Contacts ready to go, the person still taps Send or Save.
+var CAP = [
+  {en:"Search “lofi songs” straight on YouTube", hi:"YouTube पर सीधे “lofi songs” सर्च करो"},
+  {en:"Open the route from Delhi to Mumbai in Maps", hi:"Maps पर Delhi से Mumbai का रास्ता सीधे खोलो"},
+  {en:"The answer shows as you type: 216", hi:"टाइप करते ही जवाब: 216"},
+  {en:"Save Rohan's number straight to your contacts", hi:"Rohan का नंबर सीधे कॉन्टैक्ट में सेव करो"},
+  {en:"An alarm for 7 AM or 7 PM, or a 7 minute timer, in one tap", hi:"एक टैप में सुबह 7 या शाम 7 का अलार्म, या 7 मिनट का टाइमर"},
+  {en:"Add it straight to your tasks app", hi:"सीधे अपने टास्क ऐप में टास्क बनाओ"},
+  {en:"Send “how are you” to Mummy on WhatsApp, directly", hi:"Mummy को WhatsApp पर “how are you” सीधे भेजो"},
+  {en:"Call or WhatsApp Priya straight away", hi:"Priya को सीधे कॉल या WhatsApp करो"},
+  {en:"Open the Camera app straight away", hi:"Camera ऐप सीधे खोलो"},
+  {en:"Ask ChatGPT, Gemini or Claude directly", hi:"ये सवाल सीधे ChatGPT, Gemini या Claude से पूछो"},
+  {en:"See every shortcut", hi:"सारे शॉर्टकट की लिस्ट देखो"}
+];
+// While the demo plays, the line follows the example being typed, so it's up for
+// the whole example. Afterwards it shows only when the box holds an example exactly:
+// for the visitor's own text there's no line rather than a guess.
+function updateCaption() {
+  var list = examples();
+  var i = auto ? ai % list.length : list.indexOf(input.value);
+  var cap = $("cap");
+  if (i < 0) { cap.classList.add("off"); return; }
+  $("capn").textContent = (i + 1) + "/" + list.length;
+  $("capt").textContent = CAP[i][lang];
+  cap.classList.remove("off");
+}
+
 var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 var auto = !reduce, visible = true, timer = null, ai = 0, ci = 0, phase = "hold";
-var LOOP = examples().slice(0, 7);
+var LOOP = examples();
 function step() {
   timer = null;
   if (!auto || !visible) return;
   var ex = LOOP[ai % LOOP.length];
   if (phase === "type") {
     ci++; input.value = ex.slice(0, ci); render();
-    if (ci >= ex.length) { phase = "hold"; timer = setTimeout(step, 2600); return; }
+    if (ci >= ex.length) { phase = "hold"; timer = setTimeout(step, 4800); return; }
     timer = setTimeout(step, 50 + Math.random() * 55);
   } else if (phase === "hold") {
     phase = "erase"; timer = setTimeout(step, 20);
@@ -908,7 +944,7 @@ function step() {
     timer = setTimeout(step, 22);
   }
 }
-function stopAuto() { auto = false; if (timer) clearTimeout(timer); timer = null; }
+function stopAuto() { auto = false; if (timer) clearTimeout(timer); timer = null; updateCaption(); }
 if ("IntersectionObserver" in window) {
   new IntersectionObserver(function (en) {
     visible = en[0].isIntersecting;
@@ -1100,7 +1136,7 @@ langBtn.addEventListener("click", function () {
   try { localStorage.setItem("sv-lang", lang); } catch (e) {}
   if (input.value === "Delhi to Mumbai" && lang === "hi") input.value = "Delhi se Mumbai";
   else if (input.value === "Delhi se Mumbai" && lang === "en") input.value = "Delhi to Mumbai";
-  LOOP = examples().slice(0, 7);
+  LOOP = examples();
   applyLang();
 });
 
