@@ -879,13 +879,15 @@ function toast(msg) {
 }
 
 $("phone").addEventListener("click", function (ev) {
+  stopAuto();
   var el = ev.target.closest("[data-toast],[data-fill]");
   if (!el) return;
-  stopAuto();
   if (el.hasAttribute("data-fill")) { input.value = el.getAttribute("data-fill"); render(); return; }
   toast(el.getAttribute("data-toast"));
 });
-$("phone").addEventListener("pointerdown", stopAuto);
+// No stop on pointerdown: on a phone the demo phone fills the screen, so a finger
+// scrolling the page past it would stop the demo after an example or two. Taps
+// (the click handler above, the example chips) and typing stop it; scrolling doesn't.
 input.addEventListener("focus", stopAuto);
 input.addEventListener("input", function () { stopAuto(); render(); });
 clearBtn.addEventListener("click", function () { stopAuto(); input.value = ""; render(); input.focus(); });
