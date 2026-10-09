@@ -149,6 +149,14 @@ h2{font-family:var(--f-display);font-weight:700;font-size:clamp(1.9rem,3.8vw,2.9
 .sh p{color:var(--mute);font-size:18px;margin:0;max-width:40em}
 html[lang="hi"] h1,html[lang="hi"] h2{line-height:1.28;letter-spacing:0}
 html[lang="hi"] h1{font-size:clamp(2.3rem,5vw,3.9rem)}
+/* Part headings: where each of the page's two halves starts. Bigger than a section
+   heading, smaller than h1, and sat inside the half's first section so no extra
+   border or padding comes between the heading and that section. */
+.part{margin-bottom:64px;scroll-margin-top:62px}
+.part::before{content:"";display:block;width:56px;height:4px;border-radius:2px;background:var(--accent);margin-bottom:22px}
+.part h2{font-weight:800;font-size:clamp(2.15rem,4.6vw,3.4rem);line-height:1.04;letter-spacing:-.026em;margin:0 0 12px}
+html[lang="hi"] .part h2{line-height:1.25;letter-spacing:0}
+.part p{color:var(--mute);font-size:19px;margin:0;max-width:32em}
 
 .keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
 .key{padding:16px 14px;color:var(--text);display:flex;flex-direction:column;gap:4px}
@@ -184,6 +192,7 @@ html[lang="hi"] h1{font-size:clamp(2.3rem,5vw,3.9rem)}
    file names in the demo list set the column width and the page scrolls sideways. */
 .split>*{min-width:0}
 @media(max-width:860px){.split{grid-template-columns:1fr;gap:40px}}
+.split>.sh{margin-bottom:0}
 .points{display:flex;flex-direction:column;gap:28px}
 .point h3{font:600 21px var(--f-display);margin:0 0 6px;line-height:1.25}
 .point p{color:var(--mute);margin:0}
@@ -208,18 +217,11 @@ html[lang="hi"] h1{font-size:clamp(2.3rem,5vw,3.9rem)}
 .gest li{padding:14px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:baseline}
 .gest li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;transform:translateY(-2px)}
 
-/* Where each half of the page starts: bigger than a section heading, smaller than the hero. */
-.part{padding-block:96px 0;border-top:1px solid var(--line);scroll-margin-top:62px}
-.part+section{border-top:0;padding-top:48px}
-.part-n{margin:0;font:600 13px var(--f-mono);letter-spacing:.08em;color:var(--violet)}
-.part-t{margin:8px 0 10px;font:800 clamp(2.3rem,5vw,3.6rem) var(--f-display);line-height:1.05;letter-spacing:-.025em}
-.part-s{margin:0;color:var(--mute);font-size:19px;max-width:32em}
-html[lang="hi"] .part-t{line-height:1.3;letter-spacing:0}
-.snips{display:flex;flex-direction:column;gap:8px;max-width:640px}
+.snips{display:flex;flex-direction:column;gap:8px}
 .snip{display:flex;align-items:center;gap:12px;padding:11px 12px 11px 14px;border-radius:14px;background:rgba(0,0,0,.24);border:1px solid var(--line)}
 .snip span{flex:1;min-width:0;font-size:15px;line-height:1.4}
 .snip .sbtn{flex:none}
-.urlbox{display:flex;flex-direction:column;gap:6px;max-width:640px}
+.urlbox{display:flex;flex-direction:column;gap:6px}
 .ulabel{font:700 11px var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
 .url{font:500 13.5px var(--f-mono);word-break:break-all;line-height:1.6;padding:11px 14px;border-radius:12px;background:rgba(0,0,0,.24);border:1px solid var(--line)}
 .junk{color:var(--pink);text-decoration:line-through;text-decoration-thickness:1.5px}
@@ -323,13 +325,21 @@ footer a{color:var(--mute)}
     </div>
   </div>
 
-  <div class="part" id="work">
+  <!-- Part 1: get things done -->
+  <section id="search">
     <div class="wrap">
-      <p class="part-n" data-i18n="p1.n">Part 1</p>
-      <h2 class="part-t" data-i18n="p1.t">Get things done</h2>
-      <p class="part-s" data-i18n="p1.s">Type one line and your other apps do the work.</p>
+      <div class="part" id="work">
+        <h2 class="grad" data-i18n="part1.t">Get things done</h2>
+        <p data-i18n="part1.b">One line from you. Your other apps do the rest.</p>
+      </div>
+      <div class="sh">
+        <p class="eyebrow" data-i18n="pw.eyebrow">What you can type</p>
+        <h2 data-i18n="pw.title">Type it. It's done.</h2>
+        <p data-i18n="pw.body">Type one line and the right app opens, ready to go. Each card shows what you type and what you get.</p>
+      </div>
+      <div class="grid" id="powers"></div>
     </div>
-  </div>
+  </section>
 
   <section id="shortcuts">
     <div class="wrap">
@@ -339,17 +349,6 @@ footer a{color:var(--mute)}
         <p data-i18n="sc.body">Type .yt before or after your words and the search goes straight to YouTube. A dot on its own lists every shortcut. You can change the words, and even the dot.</p>
       </div>
       <div class="keys" id="keys"></div>
-    </div>
-  </section>
-
-  <section id="search">
-    <div class="wrap">
-      <div class="sh">
-        <p class="eyebrow" data-i18n="pw.eyebrow">What you can do</p>
-        <h2 data-i18n="pw.title">Type it. It's done.</h2>
-        <p data-i18n="pw.body">Type one line and the right app opens, ready to go. Each card shows what you type and what you get.</p>
-      </div>
-      <div class="grid" id="powers"></div>
     </div>
   </section>
 
@@ -386,27 +385,28 @@ footer a{color:var(--mute)}
 
   <section id="snippets">
     <div class="wrap">
-      <div class="sh">
-        <p class="eyebrow" data-i18n="sn.t">Snippets</p>
-        <h2 data-i18n="sn.h">Text you type again and again, one tap away</h2>
-        <p data-i18n="sn.b">Save text you type again and again: replies, addresses, AI prompts. Copy any of them in one tap, even over other apps from the edge strip.</p>
+      <div class="split">
+        <div class="sh">
+          <p class="eyebrow" data-i18n="sn.t">Snippets</p>
+          <h2 data-i18n="sn.title">Save it once. Paste it anywhere.</h2>
+          <p data-i18n="sn.b">Save text you type again and again: replies, addresses, AI prompts. Copy any of them in one tap, even over other apps from the edge strip.</p>
+        </div>
+        <div class="pw">
+          <div class="snips" id="snips"></div>
+        </div>
       </div>
-      <div class="snips" id="snips"></div>
     </div>
   </section>
 
-  <div class="part" id="review">
-    <div class="wrap">
-      <p class="part-n" data-i18n="p2.n">Part 2</p>
-      <h2 class="part-t" data-i18n="p2.t">Review</h2>
-      <p class="part-s" data-i18n="p2.s">Swipe through what you saved. Keep what's useful, delete the rest.</p>
-    </div>
-  </div>
-
+  <!-- Part 2: review -->
   <section id="player">
     <div class="wrap">
+      <div class="part" id="review">
+        <h2 class="grad" data-i18n="part2.t">Review</h2>
+        <p data-i18n="part2.b">Go back through what you saved, one swipe at a time.</p>
+      </div>
       <div class="sh">
-        <p class="eyebrow" data-i18n="pl.eyebrow">Your videos</p>
+        <p class="eyebrow" data-i18n="pl.eyebrow">Videos</p>
         <h2 data-i18n="pl.title">Go through your videos like Reels. Keep the good ones.</h2>
         <p data-i18n="pl.body">Every video already on your phone, in one full-screen feed, with the links you saved coming back between them. Swipe up for the next one. No internet, no account.</p>
       </div>
@@ -430,16 +430,20 @@ footer a{color:var(--mute)}
 
   <section id="links">
     <div class="wrap">
-      <div class="sh">
-        <p class="eyebrow" data-i18n="ln.t">Saved links</p>
-        <h2 data-i18n="ln.h">Your saved links come back between your videos</h2>
-        <p data-i18n="ln.b">Share a link from any app and it's saved in one tap, with its title and thumbnail. Trackers are removed. Unread links come back between your videos, so you actually read them.</p>
-      </div>
-      <div class="urlbox">
-        <span class="ulabel" data-i18n="ln.before">Shared</span>
-        <div class="url">https://youtu.be/aB3xY9kLm2Q<span class="junk">?si=Xk3pQz8VtR1bN4mC&amp;utm_source=whatsapp</span></div>
-        <span class="ulabel" data-i18n="ln.after">Saved</span>
-        <div class="url">https://youtu.be/aB3xY9kLm2Q</div>
+      <div class="split">
+        <div class="sh">
+          <p class="eyebrow" data-i18n="ln.t">Saved links</p>
+          <h2 data-i18n="ln.title">The links you saved and forgot come back</h2>
+          <p data-i18n="ln.b">Share a link from any app and it's saved in one tap, with its title and thumbnail. Trackers are removed. Unread links come back between your videos, so you actually read them.</p>
+        </div>
+        <div class="pw">
+          <div class="urlbox">
+            <span class="ulabel" data-i18n="ln.before">Shared</span>
+            <div class="url">https://youtu.be/aB3xY9kLm2Q<span class="junk">?si=Xk3pQz8VtR1bN4mC&amp;utm_source=whatsapp</span></div>
+            <span class="ulabel" data-i18n="ln.after">Saved</span>
+            <div class="url">https://youtu.be/aB3xY9kLm2Q</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -517,26 +521,25 @@ en: {
   "try.label":"Try it here. Type in the box, or tap an example under it.","demo":"Demo. The contacts and apps in it are examples.","ph":"Type, search, share…",
   "sc.eyebrow":"Dot shortcuts","sc.title":"Add a dot. Pick where it goes.",
   "sc.body":"Type .yt before or after your words and the search goes straight to YouTube. A dot on its own lists every shortcut. You can change the words, and even the dot.",
-  "pw.eyebrow":"What you can do","pw.title":"Type it. It's done.","pw.body":"Type one line and the right app opens, ready to go. Each card shows what you type and what you get.",
+  "part1.t":"Get things done","part1.b":"One line from you. Your other apps do the rest.",
+  "part2.t":"Review","part2.b":"Go back through what you saved, one swipe at a time.",
+  "pw.eyebrow":"What you can type","pw.title":"Type it. It's done.","pw.body":"Type one line and the right app opens, ready to go. Each card shows what you type and what you get.",
   "any.eyebrow":"Always one tap away","any.title":"Open it from anywhere on your phone",
   "w1t":"Home screen search bar","w1b":"Dark, white, or matched to your wallpaper.",
   "w2t":"Quick Settings tile","w2b":"Pull down from the top of the screen and tap Swipe Search.",
   "w3t":"Edge strip","w3b":"Swipe in from the side of the screen for search or snippets, even over other apps.",
   "w4t":"From any app","w4b":"Select text anywhere and tap Swipe Search.",
   "w5t":"Just say it","w5b":"Tap the mic and speak instead of typing.",
-  "pl.eyebrow":"Your videos","pl.title":"Go through your videos like Reels. Keep the good ones.",
+  "pl.eyebrow":"Videos","pl.title":"Go through your videos like Reels. Keep the good ones.",
   "pl.body":"Every video already on your phone, in one full-screen feed, with the links you saved coming back between them. Swipe up for the next one. No internet, no account.",
   "pl.p1t":"Easy for parents and grandparents","pl.p1b":"Open the app and videos start playing. Nothing to learn. Swipe up for the next one, down to go back.",
   "pl.p2t":"Phone full? Clean up while you watch.","pl.p2b":"Every video shows its size, so the big ones stand out. Delete what you don't need and see exactly how much space comes back. Try it on the list.",
   "pl.p3t":"Rename and move in one tap","pl.p3b":"Tap a video's title to rename it. Hold the title to move the video to another folder.",
   "pl.full":"Also a full video player",
   "v.pick":"Tick the videos you don't need","v.del":"Delete {n} · frees {s}","v.freed":"{s} freed","v.reset":"Reset demo",
-  "p1.n":"Part 1","p1.t":"Get things done","p1.s":"Type one line and your other apps do the work.",
-  "p2.n":"Part 2","p2.t":"Review","p2.s":"Swipe through what you saved. Keep what's useful, delete the rest.",
-  "sn.h":"Text you type again and again, one tap away","ln.h":"Your saved links come back between your videos",
-  "sn.t":"Snippets","sn.b":"Save text you type again and again: replies, addresses, AI prompts. Copy any of them in one tap, even over other apps from the edge strip.",
+  "sn.t":"Snippets","sn.title":"Save it once. Paste it anywhere.","sn.b":"Save text you type again and again: replies, addresses, AI prompts. Copy any of them in one tap, even over other apps from the edge strip.",
   "copy":"Copy","copied":"Copied",
-  "ln.t":"Saved links","ln.b":"Share a link from any app and it's saved in one tap, with its title and thumbnail. Trackers are removed. Unread links come back between your videos, so you actually read them.",
+  "ln.t":"Saved links","ln.title":"The links you saved and forgot come back","ln.b":"Share a link from any app and it's saved in one tap, with its title and thumbnail. Trackers are removed. Unread links come back between your videos, so you actually read them.",
   "ln.before":"Shared","ln.after":"Saved",
   "pv.eyebrow":"Privacy","pv.title":"Your phone. Your data.",
   "pv1":"No account, no sign-up","pv2":"Your videos never leave your phone","pv3":"Contact search is optional and stays on your phone",
@@ -572,26 +575,25 @@ hi: {
   "try.label":"यहीं ट्राई करो। बॉक्स में टाइप करो, या उसके नीचे कोई उदाहरण टैप करो।","demo":"डेमो। इसमें दिखे कॉन्टैक्ट और ऐप्स सिर्फ़ उदाहरण हैं।","ph":"टाइप करो, सर्च करो, शेयर करो…",
   "sc.eyebrow":"डॉट शॉर्टकट","sc.title":"डॉट लगाओ, जगह चुनो।",
   "sc.body":"शब्दों के पहले या बाद में .yt लिखो, सर्च सीधे YouTube पर जाएगी। सिर्फ़ डॉट लिखो तो सारे शॉर्टकट दिख जाते हैं। शॉर्टकट के शब्द, और डॉट भी, आप बदल सकते हो।",
-  "pw.eyebrow":"क्या-क्या कर सकते हो","pw.title":"लिखो, और काम हो जाए।","pw.body":"एक लाइन लिखो, सही ऐप तैयार होकर खुल जाता है। हर कार्ड में दिखा है कि क्या लिखना है और क्या मिलेगा।",
+  "part1.t":"काम करो","part1.b":"आप बस एक लाइन लिखो, बाकी काम दूसरे ऐप्स करेंगे।",
+  "part2.t":"रिव्यू करो","part2.b":"जो सेव किया था, उसे एक-एक स्वाइप करके दोबारा देखो।",
+  "pw.eyebrow":"क्या-क्या लिख सकते हो","pw.title":"लिखो, और काम हो जाए।","pw.body":"एक लाइन लिखो, सही ऐप तैयार होकर खुल जाता है। हर कार्ड में दिखा है कि क्या लिखना है और क्या मिलेगा।",
   "any.eyebrow":"हमेशा एक टैप दूर","any.title":"फ़ोन में कहीं से भी खोलो",
   "w1t":"होम स्क्रीन सर्च बार","w1b":"डार्क, व्हाइट या आपके वॉलपेपर जैसा।",
   "w2t":"क्विक सेटिंग्स टाइल","w2b":"स्क्रीन के ऊपर से नीचे खींचो और Swipe Search टैप करो।",
   "w3t":"एज स्ट्रिप","w3b":"स्क्रीन के किनारे से स्वाइप करो, सर्च या स्निपेट्स खुल जाते हैं, दूसरे ऐप्स के ऊपर भी।",
   "w4t":"किसी भी ऐप से","w4b":"कहीं भी टेक्स्ट सेलेक्ट करो और Swipe Search टैप करो।",
   "w5t":"बस बोल दो","w5b":"माइक टैप करो और टाइप करने की जगह बोलो।",
-  "pl.eyebrow":"आपके वीडियो","pl.title":"अपने वीडियो Reels की तरह देखो। काम के रखो, बाकी हटाओ।",
+  "pl.eyebrow":"वीडियो","pl.title":"अपने वीडियो Reels की तरह देखो। काम के रखो, बाकी हटाओ।",
   "pl.body":"फ़ोन में पड़े सारे वीडियो, एक फ़ुल-स्क्रीन फ़ीड में, और बीच-बीच में आपके सेव किए लिंक्स भी। अगले वीडियो के लिए ऊपर स्वाइप करो। न इंटरनेट चाहिए, न अकाउंट।",
   "pl.p1t":"मम्मी-पापा और दादा-दादी के लिए आसान","pl.p1b":"ऐप खोलते ही वीडियो चलने लगते हैं। कुछ सीखना नहीं पड़ता। अगले के लिए ऊपर स्वाइप, पिछले के लिए नीचे।",
   "pl.p2t":"फ़ोन फ़ुल? देखते-देखते सफ़ाई करो।","pl.p2b":"हर वीडियो का साइज़ दिखता है, तो बड़े वीडियो तुरंत दिख जाते हैं। जो काम के नहीं उन्हें डिलीट करो और देखो कितनी जगह खाली हुई। लिस्ट पर ट्राई करो।",
   "pl.p3t":"एक टैप में नाम बदलो, फ़ोल्डर बदलो","pl.p3b":"नाम बदलने के लिए वीडियो के टाइटल पर टैप करो। दूसरे फ़ोल्डर में ले जाने के लिए टाइटल दबाकर रखो।",
   "pl.full":"पूरा वीडियो प्लेयर भी",
   "v.pick":"जो वीडियो काम के नहीं, उन्हें टिक करो","v.del":"{n} डिलीट करें · {s} खाली होंगे","v.freed":"{s} खाली हो गए","v.reset":"डेमो दोबारा",
-  "p1.n":"भाग 1","p1.t":"काम करो","p1.s":"एक लाइन लिखो, बाकी ऐप्स काम कर देंगे।",
-  "p2.n":"भाग 2","p2.t":"रिव्यू करो","p2.s":"जो सेव किया, उसे स्वाइप करके देखो। काम का रखो, बाकी हटाओ।",
-  "sn.h":"बार-बार लिखा जाने वाला टेक्स्ट, बस एक टैप दूर","ln.h":"सेव किए लिंक्स भी वीडियो के बीच वापस आते हैं",
-  "sn.t":"स्निपेट्स","sn.b":"जो टेक्स्ट बार-बार लिखते हो उसे सेव कर लो: जवाब, पता, AI प्रॉम्प्ट। एक टैप में कॉपी करो, एज स्ट्रिप से दूसरे ऐप्स के ऊपर भी।",
+  "sn.t":"स्निपेट्स","sn.title":"एक बार सेव करो, जहाँ चाहो पेस्ट करो।","sn.b":"जो टेक्स्ट बार-बार लिखते हो उसे सेव कर लो: जवाब, पता, AI प्रॉम्प्ट। एक टैप में कॉपी करो, एज स्ट्रिप से दूसरे ऐप्स के ऊपर भी।",
   "copy":"कॉपी","copied":"कॉपी हो गया",
-  "ln.t":"सेव्ड लिंक्स","ln.b":"किसी भी ऐप से लिंक शेयर करो, एक टैप में सेव हो जाता है, टाइटल और थंबनेल के साथ। ट्रैकर हट जाते हैं। बिना पढ़े लिंक आपके वीडियो के बीच वापस आते हैं, ताकि आप उन्हें सच में पढ़ो।",
+  "ln.t":"सेव्ड लिंक्स","ln.title":"जो लिंक सेव करके भूल गए, वो वापस आएंगे","ln.b":"किसी भी ऐप से लिंक शेयर करो, एक टैप में सेव हो जाता है, टाइटल और थंबनेल के साथ। ट्रैकर हट जाते हैं। बिना पढ़े लिंक आपके वीडियो के बीच वापस आते हैं, ताकि आप उन्हें सच में पढ़ो।",
   "ln.before":"शेयर किया","ln.after":"सेव हुआ",
   "pv.eyebrow":"प्राइवेसी","pv.title":"आपका फ़ोन, आपका डेटा।",
   "pv1":"न अकाउंट, न साइन-अप","pv2":"आपके वीडियो फ़ोन से बाहर नहीं जाते","pv3":"कॉन्टैक्ट सर्च ऑप्शनल है और फ़ोन में ही रहता है",
@@ -1080,12 +1082,16 @@ var GLANCE = [
    hi:["⚡ डॉट शॉर्टकट",".yt · .shop · .ai · मैसेज.नाम"]},
   {en:["📲 From anywhere","Home screen bar · Quick Settings · Edge strip · Select text · Mic"],
    hi:["📲 कहीं से भी","होम बार · क्विक सेटिंग्स · एज स्ट्रिप · टेक्स्ट सेलेक्ट · माइक"]},
+  {en:["📝 Snippets","Save text once · Copy in one tap · From the edge strip"],
+   hi:["📝 स्निपेट्स","एक बार सेव करो · एक टैप में कॉपी · एज स्ट्रिप से भी"]},
   {en:["▶ Player","Full-screen feed · 2x · Skip · Rotation · Background play · On this day"],
    hi:["▶ प्लेयर","फ़ुल-स्क्रीन फ़ीड · 2x · स्किप · रोटेशन · बैकग्राउंड · On this day"]},
   {en:["📦 Clean-up","See sizes · Delete · Rename · Move to another folder"],
    hi:["📦 सफ़ाई","साइज़ दिखता है · डिलीट · नाम बदलो · फ़ोल्डर बदलो"]},
-  {en:["➕ More","📝 Snippets · 🔖 Saved links · 🔒 No account, works offline"],
-   hi:["➕ और भी","📝 स्निपेट्स · 🔖 लिंक्स · 🔒 बिना अकाउंट, ऑफ़लाइन"]}
+  {en:["🔖 Saved links","Save from any app · Trackers removed · Back between your videos"],
+   hi:["🔖 सेव्ड लिंक्स","किसी भी ऐप से सेव · ट्रैकर हटते हैं · वीडियो के बीच वापस"]},
+  {en:["🔒 Private","No account · Works offline · Your videos never leave your phone"],
+   hi:["🔒 प्राइवेसी","बिना अकाउंट · ऑफ़लाइन · वीडियो फ़ोन से बाहर नहीं जाते"]}
 ];
 function renderGlance() {
   $("glance").innerHTML = GLANCE.map(function (g) {
