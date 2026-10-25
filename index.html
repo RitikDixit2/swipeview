@@ -487,13 +487,13 @@ footer a{color:var(--mute)}
         </div>
         <div class="qr-big" id="qr2"></div>
       </div>
-      <div class="pc">
+      <div class="pc" id="windows">
         <div>
           <h3 data-i18n="pc.title">Swipe View for Windows</h3>
           <p data-i18n="pc.body">The same search bar on your PC. Press Alt+Space for apps, files, snippets and the web. Voice typing works offline.</p>
-          <small data-i18n="pc.note">Free · Windows 10 or 11, 64-bit · 12 MB. If Windows says "Windows protected your PC", click More info, then Run anyway.</small>
+          <small id="pcNote" data-i18n="pc.note">Free · Windows 10 or 11, 64-bit · 12 MB. If Windows says "Windows protected your PC", click More info, then Run anyway.</small>
         </div>
-        <a class="btn" href="https://github.com/RitikDixit2/swipeview/releases/latest/download/SwipeViewSetup.exe">
+        <a class="btn" id="pcGet" href="https://github.com/RitikDixit2/swipeview/releases/latest/download/SwipeViewSetup.exe">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="#fff"><path d="M3 5.5 10.5 4.4v7.1H3zM11.5 4.3 21 3v8.5h-9.5zM3 12.5h7.5v7.1L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>
           <span data-i18n="pc.btn">Download for Windows</span>
         </a>
@@ -564,6 +564,7 @@ en: {
   "gl.title":"All features at a glance","get.title":"Get Swipe View","get.body":"Point your phone camera at the code, or tap the button on your Android phone.",
   "pc.title":"Swipe View for Windows","pc.body":"The same search bar on your PC. Press Alt+Space for apps, files, snippets and the web. Voice typing works offline.",
   "pc.note":"Free · Windows 10 or 11, 64-bit · 12 MB. If Windows says \"Windows protected your PC\", click More info, then Run anyway.","pc.btn":"Download for Windows",
+  "pc.send":"Send the link to your PC","pc.phone":"Free · Windows 10 or 11, 64-bit. You're on a phone: send this link to your computer and download it there.",
   "faq.title":"Questions",
   "q1":"Is Swipe View free?","a1":"Yes. It's free to download from Google Play.",
   "q2":"Does it need the internet?","a2":"No. Your videos, contacts, apps, sums and alarms all work offline. Web searches open in your browser or the app you pick.",
@@ -620,6 +621,7 @@ hi: {
   "gl.title":"सारे फ़ीचर्स एक नज़र में","get.title":"Swipe View डाउनलोड करो","get.body":"फ़ोन का कैमरा इस कोड पर रखो, या Android फ़ोन पर बटन टैप करो।",
   "pc.title":"Windows के लिए Swipe View","pc.body":"PC पर भी वही सर्च बार। Alt+Space दबाओ और ऐप्स, फ़ाइलें, स्निपेट्स और वेब, सब एक जगह। वॉइस टाइपिंग बिना इंटरनेट के चलती है।",
   "pc.note":"फ़्री · Windows 10 या 11, 64-bit · 12 MB. अगर Windows \"Windows protected your PC\" दिखाए, तो More info दबाओ, फिर Run anyway.","pc.btn":"Windows के लिए डाउनलोड करो",
+  "pc.send":"लिंक अपने PC पर भेजो","pc.phone":"फ़्री · Windows 10 या 11, 64-bit. आप फ़ोन पर हो: ये लिंक अपने कंप्यूटर पर भेजो और वहाँ डाउनलोड करो।",
   "faq.title":"सवाल-जवाब",
   "q1":"क्या Swipe View फ़्री है?","a1":"हाँ। Google Play से फ़्री में डाउनलोड कर सकते हो।",
   "q2":"क्या इंटरनेट चाहिए?","a2":"नहीं। वीडियो, कॉन्टैक्ट्स, ऐप्स, हिसाब और अलार्म, सब ऑफ़लाइन चलते हैं। वेब सर्च आपके ब्राउज़र या चुने हुए ऐप में खुलती है।",
@@ -1210,6 +1212,23 @@ function makeQR(id, size) {
 }
 makeQR("qr1", 84);
 makeQR("qr2", 200);
+
+/* ---------- Windows download, from a phone ---------- */
+// An .exe downloaded on a phone is no use: there the button sends this card's
+// link on, by the share sheet or the clipboard, to be opened on the PC.
+if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+  var pcGet = $("pcGet"), pcLabel = pcGet.querySelector("span");
+  var pcUrl = location.origin + location.pathname + "#windows";
+  pcGet.removeAttribute("href");
+  pcGet.setAttribute("role", "button");
+  pcLabel.setAttribute("data-i18n", "pc.send");
+  $("pcNote").setAttribute("data-i18n", "pc.phone");
+  pcGet.addEventListener("click", function () {
+    if (navigator.share) { navigator.share({title: t("pc.title"), url: pcUrl}).catch(function () {}); return; }
+    function copied() { pcLabel.textContent = t("copied"); setTimeout(function () { pcLabel.textContent = t("pc.send"); }, 1500); }
+    try { navigator.clipboard.writeText(pcUrl).then(copied, function () {}); } catch (e) {}
+  });
+}
 
 input.value = LOOP[0]; ci = LOOP[0].length; phase = "hold";
 applyLang();
