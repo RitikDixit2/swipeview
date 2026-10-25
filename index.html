@@ -237,6 +237,12 @@ html[lang="hi"] .part h2{line-height:1.25;letter-spacing:0}
 .get p{color:var(--mute);font-size:18px;margin:0 0 26px;max-width:30em}
 .qr-big{justify-self:center;background:#fff;border-radius:22px;padding:14px;line-height:0;color:#0A0913;font-size:13px}
 @media(max-width:760px){.get{grid-template-columns:1fr;padding:30px 22px}.qr-big{justify-self:start}}
+/* The PC app: a quieter strip under the phone box, so the phone stays the main ask. */
+.pc{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;margin-top:18px;border:1px solid var(--line);border-radius:24px;padding:28px 34px;background:var(--raised)}
+.pc h3{font:600 22px var(--f-display);margin:0 0 6px}
+.pc p{color:var(--mute);font-size:17px;margin:0;max-width:34em}
+.pc small{display:block;color:var(--mute);font-size:14px;margin-top:10px;max-width:40em}
+@media(max-width:760px){.pc{padding:24px 22px}}
 /* Folded summary for people who skim to the bottom; closed so it doesn't repeat the page. */
 .glance{border:1px solid var(--line);border-radius:22px;background:var(--raised);padding:0 22px;margin-bottom:40px}
 .glance summary{padding:20px 0;font:600 20px var(--f-display)}
@@ -481,6 +487,17 @@ footer a{color:var(--mute)}
         </div>
         <div class="qr-big" id="qr2"></div>
       </div>
+      <div class="pc">
+        <div>
+          <h3 data-i18n="pc.title">Swipe View for Windows</h3>
+          <p data-i18n="pc.body">The same search bar on your PC. Press Alt+Space for apps, files, snippets and the web. Voice typing works offline.</p>
+          <small data-i18n="pc.note">Free · Windows 10 or 11, 64-bit · 12 MB. If Windows says "Windows protected your PC", click More info, then Run anyway.</small>
+        </div>
+        <a class="btn" href="https://github.com/RitikDixit2/swipeview/releases/latest/download/SwipeViewSetup.exe">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="#fff"><path d="M3 5.5 10.5 4.4v7.1H3zM11.5 4.3 21 3v8.5h-9.5zM3 12.5h7.5v7.1L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>
+          <span data-i18n="pc.btn">Download for Windows</span>
+        </a>
+      </div>
       <div class="faq">
         <h3 data-i18n="faq.title">Questions</h3>
         <details><summary data-i18n="q1">Is Swipe View free?</summary><p data-i18n="a1">Yes. It's free to download from Google Play.</p></details>
@@ -545,6 +562,8 @@ en: {
   "pv1":"No account, no sign-up","pv2":"Your videos never leave your phone","pv3":"Contact search is optional and stays on your phone",
   "pv4":"The internet is only used for link titles and thumbnails, and you can turn that off","pv.link":"Read the privacy policy",
   "gl.title":"All features at a glance","get.title":"Get Swipe View","get.body":"Point your phone camera at the code, or tap the button on your Android phone.",
+  "pc.title":"Swipe View for Windows","pc.body":"The same search bar on your PC. Press Alt+Space for apps, files, snippets and the web. Voice typing works offline.",
+  "pc.note":"Free · Windows 10 or 11, 64-bit · 12 MB. If Windows says \"Windows protected your PC\", click More info, then Run anyway.","pc.btn":"Download for Windows",
   "faq.title":"Questions",
   "q1":"Is Swipe View free?","a1":"Yes. It's free to download from Google Play.",
   "q2":"Does it need the internet?","a2":"No. Your videos, contacts, apps, sums and alarms all work offline. Web searches open in your browser or the app you pick.",
@@ -599,6 +618,8 @@ hi: {
   "pv1":"न अकाउंट, न साइन-अप","pv2":"आपके वीडियो फ़ोन से बाहर नहीं जाते","pv3":"कॉन्टैक्ट सर्च ऑप्शनल है और फ़ोन में ही रहता है",
   "pv4":"इंटरनेट सिर्फ़ लिंक के टाइटल और थंबनेल के लिए लगता है, और उसे बंद कर सकते हो","pv.link":"प्राइवेसी पॉलिसी पढ़ें",
   "gl.title":"सारे फ़ीचर्स एक नज़र में","get.title":"Swipe View डाउनलोड करो","get.body":"फ़ोन का कैमरा इस कोड पर रखो, या Android फ़ोन पर बटन टैप करो।",
+  "pc.title":"Windows के लिए Swipe View","pc.body":"PC पर भी वही सर्च बार। Alt+Space दबाओ और ऐप्स, फ़ाइलें, स्निपेट्स और वेब, सब एक जगह। वॉइस टाइपिंग बिना इंटरनेट के चलती है।",
+  "pc.note":"फ़्री · Windows 10 या 11, 64-bit · 12 MB. अगर Windows \"Windows protected your PC\" दिखाए, तो More info दबाओ, फिर Run anyway.","pc.btn":"Windows के लिए डाउनलोड करो",
   "faq.title":"सवाल-जवाब",
   "q1":"क्या Swipe View फ़्री है?","a1":"हाँ। Google Play से फ़्री में डाउनलोड कर सकते हो।",
   "q2":"क्या इंटरनेट चाहिए?","a2":"नहीं। वीडियो, कॉन्टैक्ट्स, ऐप्स, हिसाब और अलार्म, सब ऑफ़लाइन चलते हैं। वेब सर्च आपके ब्राउज़र या चुने हुए ऐप में खुलती है।",
